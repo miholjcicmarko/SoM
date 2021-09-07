@@ -1,3 +1,13 @@
+class DataClass {
+
+    constructor (numberOfSwipes, zions, other) {
+        this.numberOfSwipes = +numberOfSwipes;
+        this.zions = +zions;
+        this.other = +other;
+    }
+
+}
+
 class visuals {
 
     constructor (data, updateNumber) {
