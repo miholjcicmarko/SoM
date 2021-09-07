@@ -4,26 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>AETC</title>
-    <link rel="stylesheet" href="styles.css"/>
+    <!-- <link rel="stylesheet" href="styles.css"/> -->
     <script src="https://d3js.org/d3.v6.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/visuals.js"></script>
+    <!-- <script src="js/visuals.js"></script> -->
 </head>
 
 <body>
 
-    <div id="header-wrap">
-        <span>
-            <a href = "index.html">
-            <button class = "home-button" id = "header-button">Choose Another Dataset</button>
-            </a>
-        </span>
-    </div>
-
     <div id = "Introduction">
 
         <div class = "home-label" id = "home-header">
-            <h1>Archetypal Analysis Explorer</h1>
+            <h1>AETC</h1>
         </div>
 
         <div>
@@ -33,39 +25,11 @@
                 <input id="csv" type="file">
             </div>
 
-            <h5 class = "home-label">Or Select a preprocessed CSV File:</h5>
-
-            <div class = "home-label">
-                <span>
-                    <button id = "diabetesButton" class = "button">Diabetes Dataset</button>
-                </span>
-
-                <span>
-                    <button id = "covidButton" class = "button">COVID 19 Dataset</button>
-                </span>
-            </div>
-
-            <div class="padding-text">
-                <form id = "home-dropdown">Choose Number of Archetypes
-                    <select id = "selectNowInitial">
-                        <option> - </option>
-                    </select>
-                </form> 
-            </div>
-
         <div class = "home-label">
             <span>
                 <button id = "performButton">Perform Analysis On Data</button>
             </span>
         </div>
-
-        <div class = "padding-text">
-            <span>
-                <button id = "uploadImplementButton">Upload Results From Own Implementation</button>
-            </span>
-        </div>
-
-    </div>
 
 </body>
     
