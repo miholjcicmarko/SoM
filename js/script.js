@@ -6,6 +6,6 @@ Promise.all([data]).then(data => {
 
     let preData = data[0];
 
-    let bars = new visual(preData);
+    let bars = new visuals(preData);
 
 })
