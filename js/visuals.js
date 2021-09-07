@@ -31,48 +31,16 @@ class visuals {
 
     }
 
-    drawYearBar () {
-        let that = this;
-        this.slider = false;
+    drawChart () {
 
-        let amountScale = d3.scaleLinear()
-                            .domain([0, 999])
-                            .range([5, 110]);
+        let margin = {top: 10, right: 20, bottom: 10, left: 20};
         
-        let amountSlider = d3.select('#slider')
-            .append('div').classed('slider-wrap', true)
-            .append('input').classed('slider', true)
-            .attr('type', 'range')
-            .attr('min', 0)
-            .attr('max', 999)
-            .attr('value', this.activeNumber);
+        let w = 500 - margin.right - margin.left;
+        let h = 400 - margin.bottom - margin.top;
 
-        let sliderLabel = d3.select('.slider-wrap')
-            .append('div').classed('slider-label', true)
-            .append('svg').attr("id", "slider-text");
-
-        if (this.activeNumber !== null) {
-        let sliderText = sliderLabel.append('text')
-            .text(this.activeNumber);
-
-            sliderText.attr('x', amountScale(this.activeNumber));
-            sliderText.attr('y', 25);
-
-        amountSlider.on('input', function () {
-            that.slider = true;
-
-            sliderText
-                .text(this.value)
-                .attr('x', amountScale(this.value))
-                .attr('y', 25); 
-
-            that.updateNumber(this.value);
-
-        })
-        }
     }
 
-    drawBars (number, newBars) {
+    drawCharts (number, newBars) {
 
         if (newBars === true) {
             let divBar = document.getElementById("bar")

@@ -18,4 +18,6 @@ Promise.all([exampleData]).then(data => {
 
     let bars = new visuals(preData);
 
+    bars.drawCharts();
+
 })
