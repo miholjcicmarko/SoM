@@ -45,6 +45,6 @@ Promise.all([exampleData]).then(data => {
 
     }
 
-    //let selectedData = new dataSelection(preData, updateData, performAnalysis);
+    let selectedData = new dataSelection(preData, updateData, performAnalysis);
 
 })
