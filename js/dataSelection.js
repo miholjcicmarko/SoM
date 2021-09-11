@@ -30,8 +30,15 @@ class dataSelection {
             }
         });
 
+        let performButton = d3.select("#performButton");
+        performButton.on("click", function () {
+            that.performAnalysis(that.data, that.numArch, that.preloaded);
+        });
 
     }
 
+    newData (data) {
+        this.data = data;
+    }
 
 }

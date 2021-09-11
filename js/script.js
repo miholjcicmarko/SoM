@@ -39,12 +39,12 @@ Promise.all([exampleData]).then(data => {
             alert("Error! Select Demo or Upload Data");
         }
         else {
-            let plots = new visuals(data)
+            let plots = new visuals(data);
         }
 
 
     }
 
-    let selectedData = new dataselection(preData, updateData, performAnalysis);
+    let selectedData = new dataSelection(preData, updateData, performAnalysis);
 
 })

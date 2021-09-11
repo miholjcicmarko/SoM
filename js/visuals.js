@@ -10,15 +10,10 @@ class DataClass {
 
 class visuals {
 
-    constructor (data, updateNumber) {
+    constructor (data) {
 
         this.data = data;
-        this.updateNumber = updateNumber;
-        this.slider = false;
-        this.dataValues = [];
-        this.amountList = [];
-        this.companies = ["Zions", "Others"];
-        this.activeNumber = 1;
+        
 
         for (let i = 0; i < this.data.length; i++) {
             let node = new DataClass(this.data[i].num_swipes, this.data[i].Zions,
