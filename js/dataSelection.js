@@ -25,7 +25,7 @@ class dataSelection {
             reader.onload = function () {
                 let textData = reader.result;
                 textData = textData.split("/\r\n|\n/");
-                let customData = jQuery.csv.toObjects(textData[0]);
+                //let customData = jQuery.csv.toObjects(textData[0]);
                 that.updateData("custom", customData);
             }
         });
