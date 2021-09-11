@@ -1,23 +1,50 @@
 /** The script to run the program on the webpage */
 
-// async function loadexampleData () {
+async function loadexampleData () {
 
-//     let data = d3.csv("./data/Evaluation_Report.csv");
+    let data_demo = d3.csv("./data/demo.csv");
 
-//     return data;
+    let dataobject = {
+        "demo": data_demo
+    }
 
-// }
+    return dataobject;
 
-//let exampleData = loadexampleData();
+}
 
-let exampleData = d3.csv("./data/Evaluation_Report.csv");
+let exampleData = loadexampleData();
 
 Promise.all([exampleData]).then(data => {
 
     let preData = data[0];
 
-    let bars = new visuals(preData);
+    function updateData (id, data) {
+        if (id === "demo") {
+            selectedData.newData(preData["demo"]);
+            selectedData.preloaded = true;
+            document.getElementById('csv').value= null;
+        }
+        else if (id === "custom") {
+            selectedData.newData(data);
+            // unselect the button here
+            //document.getElementById("covidButton").style.color = "white";
+            //document.getElementById("covidButton").style.backgroundColor = "rgb(134, 124, 189)";
+            selectedData.preloaded = false;
+        }
+    }
 
-    bars.drawCharts();
+    function performAnalysis (data) {
+
+        if (data === null) {
+            alert("Error! Select Demo or Upload Data");
+        }
+        else {
+            let plots = new visuals(data)
+        }
+
+
+    }
+
+    let selectedData = new dataselection(preData, updateData, performAnalysis);
 
 })
