@@ -13,7 +13,6 @@ class visuals {
     constructor (data) {
 
         this.data = data;
-        
 
         for (let i = 0; i < this.data.length; i++) {
             let node = new DataClass(this.data[i].num_swipes, this.data[i].Zions,
