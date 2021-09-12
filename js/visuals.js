@@ -1,3 +1,14 @@
+class PlotData {
+
+    constructor (id, xVal, yVal) {
+        this.id = id;
+        this.xVal = xVal;
+        this.yVal = yVal;
+    }
+
+
+}
+
 class visuals {
 
     constructor (data) {
@@ -24,6 +35,7 @@ class visuals {
 
         let svg = d3.select("#chart")
             .append('svg')
+            .attr("id", "plot-svg")
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom);
 
@@ -49,8 +61,24 @@ class visuals {
                     .attr("transform", "translate(" +margin.left+ "," +(h)+")")
                     .call(d3.axisBottom(xScale));
 
-        
-                    
+        // let plotData_arr = [];
+
+        // for (let i = 0; i < this.data.length; i++) {
+        //     let datapoint = new PlotData(this.data[i]["ID"], this.data)
+        // }
+
+
+
+        // d3.select('#plot-svg').selectAll("circle")
+        //     .data(plotData_arr1)
+        //     .join("circle")
+        //     .attr('cx', (d,i) => xUpScale(d.xVal))
+        //     .attr('cy', (d,i) => yUpScale(d.yVal))
+        //     .attr('r', (d,i) => 5)
+        //     .attr("transform", "translate("+this.margin.left+",0)")
+        //     .attr("class", "circle")
+        //     .attr("id", function (d,i) { return d.id.toUpperCase()});
+
     }
 
     drawCharts (number, newBars) {
