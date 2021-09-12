@@ -164,12 +164,9 @@ class visuals {
     }
 
     tooltipDivRender (data){
-        let company = data.currentTarget.id;
-        let cost = data.currentTarget.__data__.value;
+        let id = data.currentTarget.id;
 
-        return "<h5>" + company + "<br/>" + 
-            "Cost: $" + cost + "<br/>" + 
-            "Amount of Swipes: " + this.activeNumber;
+        return "<h5>" + id + "<br/>" + 
 
     }    
 
