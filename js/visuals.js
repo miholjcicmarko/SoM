@@ -41,15 +41,16 @@ class visuals {
                     .attr("id", "y-axis");
         
         yaxis.call(d3.axisLeft(yScale).ticks(5))
-                .attr("transform", "translate(" + margin.left + "," + "5)")
+                .attr("transform", "translate(" + margin.left + "," + "0)")
                 .attr("class", "axis_line");
 
         let xaxis = svg.append("g")
                     .attr("id", "x-axis")
-                    .attr("transform", "translate(" +margin.left+ "," +(h-margin.bottom)+")")
+                    .attr("transform", "translate(" +margin.left+ "," +(h)+")")
                     .call(d3.axisBottom(xScale));
 
         
+                    
     }
 
     drawCharts (number, newBars) {
