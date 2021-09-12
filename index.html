@@ -7,39 +7,30 @@
     <link rel="stylesheet" href="styles.css"/>
     <script src="https://d3js.org/d3.v6.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
-    <script src="js/dataSelection.js"></script>
-    <script src="js/visuals.js"></script>
-    <script src="js/script.js"></script>
 </head>
 
 <body>
 
     <div id = "Introduction">
 
-        <div class = "home-label" id = "home-header">
-            <h1>AETC</h1>
-        </div>
+        <h1>AETC</h1>
 
-        <div>
-            <h5 class = "home-label">Select a local CSV File:</h5>
+        <h5>Select a local CSV File:</h5>
 
-            <div class = "home-label">
-                <input id="csv" type="file">
-            </div>
+        <input id="csv" type="file">
 
-            <span>
-                <button id = "demoButton" class = "button">Demo Dataset</button>
-            </span>
+        <button id = "demoButton" class = "button">Demo Dataset</button>
+            
+        <button id = "performButton" class = "button">Perform Analysis On Data</button>
 
-        <div>
-            <span>
-                <button id = "performButton" class = "button">Perform Analysis On Data</button>
-            </span>
-        </div>
+    </div>
 
-        <div id = "chart">
+    <div id = "chart">
+    </div>
 
-        </div>
+    <script src="js/dataSelection.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/visuals.js"></script>
 
 </body>
     
