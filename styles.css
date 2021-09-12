@@ -1,0 +1,26 @@
+#Introduction {
+    position: absolute;
+    display: inline-block;
+    z-index: 1;
+}
+
+.home-label {
+    text-align: center;
+}
+
+.button {
+    background-color: rgb(134, 124, 189);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding-right: 1%;
+    font-size: 16px;
+    cursor: pointer; 
+    border: white;
+}
+
+.button:active {
+    box-shadow: 5px rgb(134, 124, 189);
+    transform: translateY(4px);
+}
