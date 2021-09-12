@@ -74,8 +74,7 @@ class visuals {
             .attr('cx', (d,i) => xScale(d.xVal))
             .attr('cy', (d,i) => yScale(d.yVal))
             .attr('r', (d,i) => 5)
-            .attr("transform", "translate("+this.margin.left+",0)")
-            .attr("class", "circle")
+            .attr("transform", "translate("+margin.left+",0)")
             .attr("id", function (d,i) { return d.id.toUpperCase()});
 
     }
