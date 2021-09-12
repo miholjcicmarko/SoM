@@ -166,7 +166,7 @@ class visuals {
     tooltipDivRender (data){
         let id = data.currentTarget.id;
 
-        return "<h5>" + id + "<br/>" + 
+        return "<h5>" + id + "<br/>";
 
     }    
 
