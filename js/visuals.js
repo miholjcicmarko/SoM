@@ -32,6 +32,14 @@ class visuals {
         let x_var = this.variables[0];
         let y_var = this.variables[1];
 
+        let xdata = [];
+        let ydata = [];
+
+        for (let i = 0; i < this.data.length; i++) {
+            xdata.push(int(this.data[i][x_var]));
+            ydata.push(int(this.data[i][y_var]));
+        }
+
         let svg = d3.select("#chart")
             .append('svg')
             .attr("id", "plot-svg")
@@ -40,12 +48,12 @@ class visuals {
 
         let xScale = d3
             .scaleLinear()
-            .domain([0, d3.max(x_var)])
+            .domain([0, d3.max(xdata)])
             .range([0, w]);
 
         let yScale = d3
             .scaleLinear()
-            .domain([d3.max(y_var), 0])
+            .domain([d3.max(ydata), 0])
             .range([margin.bottom,h]);  
             
         let yaxis = svg.append("g")
@@ -71,12 +79,11 @@ class visuals {
         d3.select('#plot-svg').selectAll("circle")
             .data(plotData_arr)
             .join("circle")
-            .attr('cx', (d,i) => xScale(d.xVal))
-            .attr('cy', (d,i) => yScale(d.yVal))
-            .attr('r', (d,i) => 5)
+            .attr('cx', (d) => xScale(d.xVal))
+            .attr('cy', (d) => yScale(d.yVal))
+            .attr('r', (d) => 5)
             .attr("transform", "translate("+margin.left+",0)")
             .attr("id", function (d,i) { return d.id.toUpperCase()});
-
     }
 
     drawCharts (number, newBars) {
