@@ -3,7 +3,10 @@ class visuals {
     constructor (data) {
 
         this.data = data;
-        this.variables = data.columns;
+        this.variables = [];
+        for (let i = 1; i < data.columns.length; i++) {
+            this.variables.push(data.columns[i]);
+        }
 
         this.drawChart();
 
@@ -16,8 +19,10 @@ class visuals {
         let w = 500 - margin.right - margin.left;
         let h = 400 - margin.bottom - margin.top;
 
-        
+        let x_var = this.variables[0];
+        let y_var = this.variables[1];
 
+        
 
     }
 
