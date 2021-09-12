@@ -96,6 +96,10 @@ class visuals {
             .attr("fill", (d,i) => that.color(i))
             .attr("id", function (d,i) { return d.id.toUpperCase()});
 
+        let data_circ = d3.selectAll("#plot-svg").selectAll("circle");
+
+        that.tooltip(data_circ);
+
     }
 
     drawCharts (number, newBars) {
