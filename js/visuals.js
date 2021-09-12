@@ -36,8 +36,8 @@ class visuals {
         let ydata = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            xdata.push(int(this.data[i][x_var]));
-            ydata.push(int(this.data[i][y_var]));
+            xdata.push(parseInt(this.data[i][x_var]));
+            ydata.push(parseInt(this.data[i][y_var]));
         }
 
         let svg = d3.select("#chart")
