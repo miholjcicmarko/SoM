@@ -2,7 +2,7 @@
 
 async function loadexampleData () {
 
-    let data_demo = d3.csv("./data/demo.csv");
+    let data_demo = await d3.csv("./data/demo.csv");
 
     let dataobject = {
         "demo": data_demo
