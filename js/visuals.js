@@ -22,7 +22,7 @@ class visuals {
         let x_var = this.variables[0];
         let y_var = this.variables[1];
 
-        d3.select("#chart")
+        let svg = d3.select("#chart")
             .append('svg')
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom);
