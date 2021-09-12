@@ -18,6 +18,9 @@ class visuals {
             this.variables.push(data.columns[i]);
         }
 
+        this.color = d3.scaleOrdinal(d3.schemeAccent)
+                .domain([0,this.data.length]);
+
         this.drawChart();
 
     }
@@ -71,7 +74,7 @@ class visuals {
         let plotData_arr = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            let datapoint = new PlotData(this.data[i]["ID"], this.data[0][x_var],
+            let datapoint = new PlotData(this.data[i]["ID"], this.data[i][x_var],
                                         this.data[i][y_var]);
                 plotData_arr.push(datapoint);
         }
@@ -84,6 +87,7 @@ class visuals {
             .attr('r', (d) => 5)
             .attr("transform", "translate("+margin.left+",0)")
             .attr("id", function (d,i) { return d.id.toUpperCase()});
+
     }
 
     drawCharts (number, newBars) {
@@ -126,7 +130,7 @@ class visuals {
                 .paddingInner(0.1);
 
         let yScale = d3.scaleLinear()
-                .domain([d3.max([dataBar[0]["Zions"], dataBar[0]["Others"]])+20,0])
+                .domain([d3.max([dataBar[0]["Zions"], dataBar[i]["Others"]])+20,0])
                 .range([0,h-10]);
 
         let svg = d3.select("#bar")
