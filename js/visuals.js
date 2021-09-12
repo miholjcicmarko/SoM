@@ -1,27 +1,11 @@
-class DataClass {
-
-    constructor (numberOfSwipes, zions, other) {
-        this.numberOfSwipes = +numberOfSwipes;
-        this.zions = +zions;
-        this.other = +other;
-    }
-
-}
-
 class visuals {
 
     constructor (data) {
 
         this.data = data;
+        this.variables = data.columns;
 
-        for (let i = 0; i < this.data.length; i++) {
-            let node = new DataClass(this.data[i].num_swipes, this.data[i].Zions,
-                this.data[i].Others);
-            this.dataValues.push(node);
-            this.amountList.push(i);
-        }
-
-        this.drawYearBar();
+        this.drawChart();
 
     }
 
@@ -31,6 +15,9 @@ class visuals {
         
         let w = 500 - margin.right - margin.left;
         let h = 400 - margin.bottom - margin.top;
+
+        
+
 
     }
 
