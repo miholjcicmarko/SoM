@@ -49,7 +49,7 @@ class visuals {
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom);
 
-        d3.select('#chart')
+        d3.select('#plot-svg')
             .append('div')
             .attr("class", "tooltip")
             .style("opacity", 0);
