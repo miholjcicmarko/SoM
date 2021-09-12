@@ -43,16 +43,16 @@ class visuals {
             ydata.push(parseInt(this.data[i][y_var]));
         }
 
+        d3.select('#chart')
+            .append('div')
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
         let svg = d3.select("#chart")
             .append('svg')
             .attr("id", "plot-svg")
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom);
-
-        d3.select('#plot-svg')
-            .append('div')
-            .attr("class", "tooltip")
-            .style("opacity", 0);
 
         let xScale = d3
             .scaleLinear()
@@ -96,7 +96,7 @@ class visuals {
             .attr("fill", (d,i) => that.color(i))
             .attr("id", function (d,i) { return d.id.toUpperCase()});
 
-        let data_circ = d3.selectAll("#plot-svg").selectAll("circle");
+        let data_circ = d3.selectAll("#chart").selectAll("circle");
 
         that.tooltip(data_circ);
 
