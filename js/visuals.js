@@ -2,10 +2,9 @@ class PlotData {
 
     constructor (id, xVal, yVal) {
         this.id = id;
-        this.xVal = xVal;
-        this.yVal = yVal;
+        this.xVal = parseInt(xVal);
+        this.yVal = parseInt(yVal);
     }
-
 
 }
 
@@ -72,8 +71,8 @@ class visuals {
         d3.select('#plot-svg').selectAll("circle")
             .data(plotData_arr)
             .join("circle")
-            .attr('cx', (d,i) => xUpScale(d.xVal))
-            .attr('cy', (d,i) => yUpScale(d.yVal))
+            .attr('cx', (d,i) => xScale(d.xVal))
+            .attr('cy', (d,i) => yScale(d.yVal))
             .attr('r', (d,i) => 5)
             .attr("transform", "translate("+this.margin.left+",0)")
             .attr("class", "circle")
