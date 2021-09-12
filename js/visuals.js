@@ -22,8 +22,34 @@ class visuals {
         let x_var = this.variables[0];
         let y_var = this.variables[1];
 
-        
+        d3.select("#chart")
+            .append('svg')
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom);
 
+        let xScale = d3
+            .scaleLinear()
+            .domain([0, d3.max(x_var)])
+            .range([0, w]);
+
+        let yScale = d3
+            .scaleLinear()
+            .domain([d3.max(y_var), 0])
+            .range([margin.bottom,h]);  
+            
+        let yaxis = svg.append("g")
+                    .attr("id", "y-axis");
+        
+        yaxis.call(d3.axisLeft(yScale).ticks(5))
+                .attr("transform", "translate(" + margin.left + "," + "5)")
+                .attr("class", "axis_line");
+
+        let xaxis = svg.append("g")
+                    .attr("id", "x-axis")
+                    .attr("transform", "translate(" +margin.left+ "," +(h-margin.bottom)+")")
+                    .call(d3.axisBottom(xScale));
+
+        
     }
 
     drawCharts (number, newBars) {
