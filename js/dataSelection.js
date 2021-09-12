@@ -7,7 +7,7 @@ class dataSelection {
 
         let that = this;
 
-        let demoData = d3.dataSelection("#demoButton");
+        let demoData = d3.select("#demoButton");
 
         demoData.on("click", function() {
             document.getElementById("demoButton").style.color = "black"
