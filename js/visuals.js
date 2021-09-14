@@ -10,12 +10,19 @@ class PlotData {
 
 class visuals {
 
-    constructor (data) {
+    constructor (data, custom) {
 
         this.data = data;
         this.variables = [];
-        for (let i = 1; i < data.columns.length; i++) {
-            this.variables.push(data.columns[i]);
+
+        if (custom === false) {
+            for (let i = 1; i < data.columns.length; i++) {
+                this.variables.push(data.columns[i]);
+            }
+        }
+        else if (custom === true) {
+            this.variables = Object.keys(data[0])
+            this.variables.shift();
         }
 
         this.color = d3.scaleOrdinal(d3.schemeAccent)

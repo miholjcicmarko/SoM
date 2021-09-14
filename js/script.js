@@ -33,13 +33,13 @@ Promise.all([exampleData]).then(data => {
         }
     }
 
-    function performAnalysis (data) {
+    function performAnalysis (data, custom) {
 
         if (data === null) {
             alert("Error! Select Demo or Upload Data");
         }
         else {
-            let plots = new visuals(data);
+            let plots = new visuals(data, custom);
         }
 
 
