@@ -30,6 +30,41 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
+        let dropdownWrap = d3.select('#chart').append('div').classed('dropdown-wrapper', true);
+
+        let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
+
+        xWrap.append('div').classed('x-label', true)
+            .append('text')
+            .text('X Axis Data');
+
+        xWrap.append('div').attr('id', 'dropdown_x').classed('dropdown', true).append('div').classed('dropdown-content', true)
+            .append('select');
+
+        let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
+
+        yWrap.append('div').classed('y-label', true)
+            .append('text')
+            .text('Y Axis Data');
+
+        yWrap.append('div').attr('id', 'dropdown_y').classed('dropdown', true).append('div').classed('dropdown-content', true)
+            .append('select');
+
+        d3.selectAll('#dropdown_x')
+            .on("change", function (d) {
+                let dropdownX = d;
+            })
+
+        d3.selectAll('#dropdown_y')
+            .on("change", function (d){
+                let dropdownY = d;
+            })
+            
+        d3.selectAll('#dropdown_c')
+            .on("change", function(d){
+                let dropdownC = d;
+            })
+
         this.drawChart(0,1);
 
     }
