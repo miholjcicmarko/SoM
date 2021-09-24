@@ -129,34 +129,6 @@ class visuals {
             });
         }
 
-        /* CIRCLE DROPDOWN */
-        let dropC = dropDownWrapper.select('#dropdown_c').select('.dropdown-content').select('select');
-
-        let optionsC = dropC.selectAll('option')
-            .data(dropData);
-
-
-        optionsC.exit().remove();
-
-        let optionsCEnter = optionsC.enter()
-            .append('option')
-            .attr('value', (d, i) => d.indicator);
-
-        optionsCEnter.append('text')
-            .text((d, i) => d.indicator_name);
-
-        optionsC = optionsCEnter.merge(optionsC);
-
-        let selectedC = optionsC.filter(d => d.indicator === circleSizeIndicator)
-            .attr('selected', true);
-
-        dropC.on('change', function (d, i) {
-            let cValue = this.options[this.selectedIndex].value;
-            let xValue = dropX.node().value;
-            let yValue = dropY.node().value;
-            that.updatePlot(that.activeYear, xValue, yValue, cValue);
-        });
-
         /* X DROPDOWN */
         let dropX = dropDownWrapper.select('#dropdown_x').select('.dropdown-content').select('select');
 
@@ -213,112 +185,37 @@ class visuals {
 
     }
 
-        /**
-     * Setting up the drop-downs
-     * @param xIndicator identifies the values to use for the x axis
-     * @param yIndicator identifies the values to use for the y axis
-     * @param circleSizeIndicator identifies the values to use for the circle size
-     */
-    drawDropDown(xIndicator, yIndicator) {
+    // drawCharts (number, newBars) {
 
-            let that = this;
-            let dropDownWrapper = d3.select('.dropdown-wrapper');
-            let dropData = [];
-    
-            for (let key in this.data) {
-                dropData.push({
-                    indicator: key,
-                    indicator_name: this.data[key][0].indicator_name
-                });
-            }
-    
-            /* X DROPDOWN */
-            let dropX = dropDownWrapper.select('#dropdown_x').select('.dropdown-content').select('select');
-    
-            let optionsX = dropX.selectAll('option')
-                .data(dropData);
-    
-            optionsX.exit().remove();
-    
-            let optionsXEnter = optionsX.enter()
-                .append('option')
-                .attr('value', (d, i) => d.indicator);
-    
-            optionsXEnter.append('text')
-                .text((d, i) => d.indicator_name);
-    
-            optionsX = optionsXEnter.merge(optionsX);
-    
-            let selectedX = optionsX.filter(d => d.indicator === xIndicator)
-                .attr('selected', true);
-    
-            dropX.on('change', function (d, i) {
-                let xValue = this.options[this.selectedIndex].value;
-                let yValue = dropY.node().value;
-                let cValue = dropC.node().value;
-                that.updatePlot(that.activeYear, xValue, yValue, cValue);
-            });
-    
-            /* Y DROPDOWN */
-            let dropY = dropDownWrapper.select('#dropdown_y').select('.dropdown-content').select('select');
-    
-            let optionsY = dropY.selectAll('option')
-                .data(dropData);
-    
-            optionsY.exit().remove();
-    
-            let optionsYEnter = optionsY.enter()
-                .append('option')
-                .attr('value', (d, i) => d.indicator);
-    
-            optionsY = optionsYEnter.merge(optionsY);
-    
-            optionsYEnter.append('text')
-                .text((d, i) => d.indicator_name);
-    
-            let selectedY = optionsY.filter(d => d.indicator === yIndicator)
-                .attr('selected', true);
-    
-            dropY.on('change', function (d, i) {
-                let yValue = this.options[this.selectedIndex].value;
-                let xValue = dropX.node().value;
-                let cValue = dropC.node().value;
-                that.updatePlot(that.activeYear, xValue, yValue, cValue);
-            });
-    
-        }
+    //     if (newBars === true) {
+    //         let divBar = document.getElementById("bar")
+    //         while (divBar.firstChild) {
+    //             divBar.removeChild(divBar.firstChild);
+    //         }
+    //     }
 
-    drawCharts (number, newBars) {
+    //     svg.append("text")
+    //             .text("Cost ($)")
+    //             .attr("transform", "translate(15,"+(h/2)+")rotate(-90)")
+    //             .attr("text-anchor", "middle");
 
-        if (newBars === true) {
-            let divBar = document.getElementById("bar")
-            while (divBar.firstChild) {
-                divBar.removeChild(divBar.firstChild);
-            }
-        }
+    //     let bars = d3.selectAll("#bar").selectAll("rect");
 
-        svg.append("text")
-                .text("Cost ($)")
-                .attr("transform", "translate(15,"+(h/2)+")rotate(-90)")
-                .attr("text-anchor", "middle");
+    //     this.tooltip(bars);
+    // }
 
-        let bars = d3.selectAll("#bar").selectAll("rect");
+    // updateChart (number) {
+    //     let that = this;
 
-        this.tooltip(bars);
-    }
+    //     d3.selectAll(".tooltip").remove();
 
-    updateChart (number) {
-        let that = this;
+    //     let new_num = +number;
 
-        d3.selectAll(".tooltip").remove();
+    //     this.activeNumber = new_num;
 
-        let new_num = +number;
+    //     this.drawBars(new_num, true);
 
-        this.activeNumber = new_num;
-
-        this.drawBars(new_num, true);
-
-    }
+    // }
 
     tooltip (onscreenData) {
         let that = this;
