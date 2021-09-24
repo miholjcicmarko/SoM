@@ -30,6 +30,67 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
+        this.drawChart(0,1);
+        this.drawDropDown();
+
+    }
+
+    drawChart (xIndicator, yIndicator) {
+
+        let margin = {top: 10, right: 20, bottom: 10, left: 20};
+        
+        let w = 500 - margin.right - margin.left;
+        let h = 400 - margin.bottom - margin.top;
+
+        let x_var = this.variables[xIndicator];
+        let y_var = this.variables[yIndicator];
+
+        let xdata = [];
+        let ydata = [];
+
+        for (let i = 0; i < this.data.length; i++) {
+            xdata.push(parseInt(this.data[i][x_var]));
+            ydata.push(parseInt(this.data[i][y_var]));
+        }
+
+        d3.select('#scatter-plot')
+            .append('div').attr('id', 'chart-view');
+
+        d3.select('#chart-view')
+            .append('div')
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        let svg = d3.select("#chart-view")
+            .append('svg')
+            .classed('plot-svg', true)
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom);
+
+        let svgGroup = d3.select('#chart-view').select('.plot-svg').append('g').classed('wrapper-group', true);
+    
+        let xaxis = svgGroup.append("g")
+            .classed("x-axis", true)
+            .attr("id", "x-axis");
+
+        let yaxis = d3.select(".plot-svg").append("g")
+            .classed("y-axis", true)
+            .attr("id", "y-axis");
+
+        xaxis.append("text")
+            .classed("axis-label-x", true)
+            .attr("transform", "translate("+(5*this.margin.left)+"," +(2*this.margin.top)+")")
+            .attr("text-anchor", "middle")
+            .attr("class", "axis-label")
+            .attr("class", "x-label");
+
+        yaxis.append("text")
+            .classed("axis-label-y", true)
+            .attr("transform", "translate(-"+(1.2*this.margin.bottom) + ","+(2.5*this.margin.left)+")rotate(-90)")
+            .attr("class", "axis-label")
+            .attr("text-anchor", "middle")
+            .attr("class", "y-label"); 
+
         let dropdownWrap = d3.select('#chart').append('div').classed('dropdown-wrapper', true);
 
         let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
@@ -59,44 +120,6 @@ class visuals {
             .on("change", function (d){
                 let dropdownY = d;
             })
-            
-        d3.selectAll('#dropdown_c')
-            .on("change", function(d){
-                let dropdownC = d;
-            })
-
-        this.drawChart(0,1);
-
-    }
-
-    drawChart (xIndicator, yIndicator) {
-
-        let margin = {top: 10, right: 20, bottom: 10, left: 20};
-        
-        let w = 500 - margin.right - margin.left;
-        let h = 400 - margin.bottom - margin.top;
-
-        let x_var = this.variables[xIndicator];
-        let y_var = this.variables[yIndicator];
-
-        let xdata = [];
-        let ydata = [];
-
-        for (let i = 0; i < this.data.length; i++) {
-            xdata.push(parseInt(this.data[i][x_var]));
-            ydata.push(parseInt(this.data[i][y_var]));
-        }
-
-        d3.select('#chart')
-            .append('div')
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        let svg = d3.select("#chart")
-            .append('svg')
-            .attr("id", "plot-svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom);
 
         let xScale = d3
             .scaleLinear()
@@ -187,7 +210,6 @@ class visuals {
         dropX.on('change', function (d, i) {
             let xValue = this.options[this.selectedIndex].value;
             let yValue = dropY.node().value;
-            let cValue = dropC.node().value;
             that.updatePlot(that.activeYear, xValue, yValue, cValue);
         });
 
@@ -214,8 +236,7 @@ class visuals {
         dropY.on('change', function (d, i) {
             let yValue = this.options[this.selectedIndex].value;
             let xValue = dropX.node().value;
-            let cValue = dropC.node().value;
-            that.updatePlot(that.activeYear, xValue, yValue, cValue);
+            that.updatePlot(xValue, yValue);
         });
 
     }
