@@ -10,10 +10,12 @@ class PlotData {
 
 class visuals {
 
-    constructor (data, custom) {
+    constructor (data, custom, updateX, updateY) {
 
         this.data = data;
         this.variables = [];
+        this.updateX = updateX;
+        this.updateY = updateY;
 
         if (custom === false) {
             for (let i = 1; i < data.columns.length; i++) {
@@ -28,19 +30,19 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
-        this.drawChart();
+        this.drawChart(0,1);
 
     }
 
-    drawChart () {
+    drawChart (xIndicator, yIndicator) {
 
         let margin = {top: 10, right: 20, bottom: 10, left: 20};
         
         let w = 500 - margin.right - margin.left;
         let h = 400 - margin.bottom - margin.top;
 
-        let x_var = this.variables[0];
-        let y_var = this.variables[1];
+        let x_var = this.variables[xIndicator];
+        let y_var = this.variables[yIndicator];
 
         let xdata = [];
         let ydata = [];
@@ -108,6 +110,183 @@ class visuals {
         that.tooltip(data_circ);
 
     }
+
+        /**
+     * Setting up the drop-downs
+     * @param xIndicator identifies the values to use for the x axis
+     * @param yIndicator identifies the values to use for the y axis
+     */
+    drawDropDown(xIndicator, yIndicator) {
+
+        let that = this;
+        let dropDownWrapper = d3.select('.dropdown-wrapper');
+        let dropData = [];
+
+        for (let key in this.data) {
+            dropData.push({
+                indicator: key,
+                indicator_name: this.data[key][0].indicator_name
+            });
+        }
+
+        /* CIRCLE DROPDOWN */
+        let dropC = dropDownWrapper.select('#dropdown_c').select('.dropdown-content').select('select');
+
+        let optionsC = dropC.selectAll('option')
+            .data(dropData);
+
+
+        optionsC.exit().remove();
+
+        let optionsCEnter = optionsC.enter()
+            .append('option')
+            .attr('value', (d, i) => d.indicator);
+
+        optionsCEnter.append('text')
+            .text((d, i) => d.indicator_name);
+
+        optionsC = optionsCEnter.merge(optionsC);
+
+        let selectedC = optionsC.filter(d => d.indicator === circleSizeIndicator)
+            .attr('selected', true);
+
+        dropC.on('change', function (d, i) {
+            let cValue = this.options[this.selectedIndex].value;
+            let xValue = dropX.node().value;
+            let yValue = dropY.node().value;
+            that.updatePlot(that.activeYear, xValue, yValue, cValue);
+        });
+
+        /* X DROPDOWN */
+        let dropX = dropDownWrapper.select('#dropdown_x').select('.dropdown-content').select('select');
+
+        let optionsX = dropX.selectAll('option')
+            .data(dropData);
+
+        optionsX.exit().remove();
+
+        let optionsXEnter = optionsX.enter()
+            .append('option')
+            .attr('value', (d, i) => d.indicator);
+
+        optionsXEnter.append('text')
+            .text((d, i) => d.indicator_name);
+
+        optionsX = optionsXEnter.merge(optionsX);
+
+        let selectedX = optionsX.filter(d => d.indicator === xIndicator)
+            .attr('selected', true);
+
+        dropX.on('change', function (d, i) {
+            let xValue = this.options[this.selectedIndex].value;
+            let yValue = dropY.node().value;
+            let cValue = dropC.node().value;
+            that.updatePlot(that.activeYear, xValue, yValue, cValue);
+        });
+
+        /* Y DROPDOWN */
+        let dropY = dropDownWrapper.select('#dropdown_y').select('.dropdown-content').select('select');
+
+        let optionsY = dropY.selectAll('option')
+            .data(dropData);
+
+        optionsY.exit().remove();
+
+        let optionsYEnter = optionsY.enter()
+            .append('option')
+            .attr('value', (d, i) => d.indicator);
+
+        optionsY = optionsYEnter.merge(optionsY);
+
+        optionsYEnter.append('text')
+            .text((d, i) => d.indicator_name);
+
+        let selectedY = optionsY.filter(d => d.indicator === yIndicator)
+            .attr('selected', true);
+
+        dropY.on('change', function (d, i) {
+            let yValue = this.options[this.selectedIndex].value;
+            let xValue = dropX.node().value;
+            let cValue = dropC.node().value;
+            that.updatePlot(that.activeYear, xValue, yValue, cValue);
+        });
+
+    }
+
+        /**
+     * Setting up the drop-downs
+     * @param xIndicator identifies the values to use for the x axis
+     * @param yIndicator identifies the values to use for the y axis
+     * @param circleSizeIndicator identifies the values to use for the circle size
+     */
+    drawDropDown(xIndicator, yIndicator) {
+
+            let that = this;
+            let dropDownWrapper = d3.select('.dropdown-wrapper');
+            let dropData = [];
+    
+            for (let key in this.data) {
+                dropData.push({
+                    indicator: key,
+                    indicator_name: this.data[key][0].indicator_name
+                });
+            }
+    
+            /* X DROPDOWN */
+            let dropX = dropDownWrapper.select('#dropdown_x').select('.dropdown-content').select('select');
+    
+            let optionsX = dropX.selectAll('option')
+                .data(dropData);
+    
+            optionsX.exit().remove();
+    
+            let optionsXEnter = optionsX.enter()
+                .append('option')
+                .attr('value', (d, i) => d.indicator);
+    
+            optionsXEnter.append('text')
+                .text((d, i) => d.indicator_name);
+    
+            optionsX = optionsXEnter.merge(optionsX);
+    
+            let selectedX = optionsX.filter(d => d.indicator === xIndicator)
+                .attr('selected', true);
+    
+            dropX.on('change', function (d, i) {
+                let xValue = this.options[this.selectedIndex].value;
+                let yValue = dropY.node().value;
+                let cValue = dropC.node().value;
+                that.updatePlot(that.activeYear, xValue, yValue, cValue);
+            });
+    
+            /* Y DROPDOWN */
+            let dropY = dropDownWrapper.select('#dropdown_y').select('.dropdown-content').select('select');
+    
+            let optionsY = dropY.selectAll('option')
+                .data(dropData);
+    
+            optionsY.exit().remove();
+    
+            let optionsYEnter = optionsY.enter()
+                .append('option')
+                .attr('value', (d, i) => d.indicator);
+    
+            optionsY = optionsYEnter.merge(optionsY);
+    
+            optionsYEnter.append('text')
+                .text((d, i) => d.indicator_name);
+    
+            let selectedY = optionsY.filter(d => d.indicator === yIndicator)
+                .attr('selected', true);
+    
+            dropY.on('change', function (d, i) {
+                let yValue = this.options[this.selectedIndex].value;
+                let xValue = dropX.node().value;
+                let cValue = dropC.node().value;
+                that.updatePlot(that.activeYear, xValue, yValue, cValue);
+            });
+    
+        }
 
     drawCharts (number, newBars) {
 
