@@ -131,7 +131,7 @@ class visuals {
             .domain([d3.max(ydata), 0])
             .range([margin.bottom,h]);  
             
-        let yaxis = svg.append("g")
+        yaxis = svg.append("g")
                     .attr("id", "y-axis");
         
         yaxis.call(d3.axisLeft(yScale).ticks(5))
