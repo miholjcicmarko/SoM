@@ -1,3 +1,15 @@
+#big-wrapper {
+    display: grid;
+    grid-template-columns: 1;
+    gap: 5px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+
+
+
+
+
 #Introduction {
     position: absolute;
     display: inline-block;
