@@ -13,11 +13,15 @@
 
 #Introduction {
     grid-area: header;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .resize {
-    width: 50%;
-    height: 50%;
+    width: 25%;
+    height: 45%;
 }
 
 .home-label {
