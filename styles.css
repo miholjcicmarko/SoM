@@ -15,6 +15,11 @@
     grid-area: header;
 }
 
+.resize {
+    width: 50%;
+    height: auto;
+}
+
 .home-label {
     text-align: center;
 }
