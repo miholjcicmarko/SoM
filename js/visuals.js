@@ -186,20 +186,20 @@ class visuals {
 
     updateChart (xIndicator, yIndicator) {
 
-        let x_var = "";
-        let y_var = "";
+        let x_VarIndx = 0;
+        let y_VarIndx = 0;
         
         for (let i = 0; i < this.variables.length; i++) {
             if (this.variables[i] === xIndicator) {
-                x_var = i;
+                x_VarIndx = i;
             }
             if (this.variables[i] === yIndicator) {
-                y_var = i;
+                y_VarIndx = i;
             }
         }
 
-        let x_var = this.variables[x_Var];
-        let y_var = this.variables[y_Var];
+        let x_var = this.variables[x_VarIndx];
+        let y_var = this.variables[y_VarIndx];
 
         let xdata = [];
         let ydata = [];
