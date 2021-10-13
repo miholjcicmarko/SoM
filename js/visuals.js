@@ -33,12 +33,12 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
-        this.drawChart(0,1);
+        this.drawChart();
         this.drawDropDown();
 
     }
 
-    drawChart (xIndicator, yIndicator) {
+    drawChart () {
 
         d3.select('#chart1')
             .append('div').attr('id', 'chart-view1');
@@ -151,7 +151,7 @@ class visuals {
         dropX.on('change', function (d, i) {
             let xValue = this.options[this.selectedIndex].value;
             let yValue = dropY.node().value;
-            that.updatePlot(that.activeYear, xValue, yValue, cValue);
+            that.updateChart(that.activeYear, xValue, yValue, cValue);
         });
 
         /* Y DROPDOWN */
@@ -177,7 +177,7 @@ class visuals {
         dropY.on('change', function (d, i) {
             let yValue = this.options[this.selectedIndex].value;
             let xValue = dropX.node().value;
-            that.updatePlot(xValue, yValue);
+            that.updateChart(xValue, yValue);
         });
 
     }
