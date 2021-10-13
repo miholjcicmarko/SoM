@@ -12,10 +12,10 @@ class visuals {
 
     constructor (data, custom) {
 
-        this.margin = {top: 10, right: 30, bottom: 10, left: 30};
+        this.margin = {top: 15, right: 30, bottom: 20, left: 30};
         
         this.w = 350 - this.margin.right - this.margin.left;
-        this.h = 250 - this.margin.bottom - this.margin.top;
+        this.h = 300 - this.margin.bottom - this.margin.top;
 
         this.data = data;
         this.variables = [];
@@ -73,7 +73,7 @@ class visuals {
 
         yaxis.append("text")
             .classed("axis-label-y", true)
-            .attr("transform", "translate(-"+(1.2*this.margin.bottom) + ","+(2.5*this.margin.left)+")rotate(-90)")
+            .attr("transform", "translate(-"+(this.margin.bottom) + ","+(this.h/2)+")rotate(-90)")
             .attr("class", "axis-label")
             .attr("text-anchor", "middle")
             .attr("class", "y-label"); 
@@ -230,15 +230,15 @@ class visuals {
             .attr("class", "axis line");
 
         let xlab = d3.select('.x-label')
-            .text(function() { return "" + xIndicator});
+            .text(function() { return "" + x_var});
 
         xlab.attr("text-anchor", "middle")
             .attr("class", "axis label")
             .attr("class", "x-label")
             .attr("fill", "black");
 
-        let ylab = d3.select('.ylabel')
-            .text(function () { return "" + yIndicator});
+        let ylab = d3.select('.y-label')
+            .text(function () { return "" + y_var});
 
         ylab.attr("text-anchor", "middle")
             .attr("class", "axis label")
