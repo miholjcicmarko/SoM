@@ -40,74 +40,75 @@ class visuals {
 
     drawChart () {
 
-        d3.select('#chart1')
-            .append('div').attr('id', 'chart-view1');
+        for (let i = 1; i < 5; i++) {
+            d3.select('#chart' + i)
+                .append('div').attr('id', 'chart-view'+ i);
 
-        d3.select('#chart-view1')
-            .append('div')
-            .attr("class", "tooltip")
-            .style("opacity", 0);
+            d3.select('#chart-view'+i)
+                .append('div')
+                .attr("class", "tooltip")
+                .style("opacity", 0);
 
-        let svg = d3.select("#chart-view1")
-            .append('svg')
-            .classed('plot-svg', true)
-            .attr("width", this.w + this.margin.left + this.margin.right)
-            .attr("height", this.h + this.margin.top + this.margin.bottom);
+            let svg = d3.select("#chart-view" + i)
+                .append('svg')
+                .classed('plot-svg', true)
+                .attr("width", this.w + this.margin.left + this.margin.right)
+                .attr("height", this.h + this.margin.top + this.margin.bottom);
 
-        let svgGroup = d3.select('#chart-view1').select('.plot-svg').append('g').classed('wrapper-group', true);
+            let svgGroup = d3.select('#chart-view1').select('.plot-svg').append('g').classed('wrapper-group', true);
     
-        let xaxis = svgGroup.append("g")
-            .classed("x-axis", true)
-            .attr("id", "x-axis1");
-
-        let yaxis = d3.select(".plot-svg").append("g")
-            .classed("y-axis", true)
-            .attr("id", "y-axis1");
-
-        xaxis.append("text")
-            .classed("axis-label-x", true)
-            .attr("transform", "translate("+(5*this.margin.left)+"," +(2*this.margin.top)+")")
-            .attr("text-anchor", "middle")
-            .attr("class", "axis-label")
-            .attr("class", "x-label");
-
-        yaxis.append("text")
-            .classed("axis-label-y", true)
-            .attr("transform", "translate(-"+(this.margin.left) + ","+(this.h/2)+")rotate(-90)")
-            .attr("class", "axis-label")
-            .attr("text-anchor", "middle")
-            .attr("class", "y-label"); 
-
-        let dropdownWrap = d3.select('#chart1').append('div').classed('dropdown-wrapper', true);
-
-        let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
-
-        xWrap.append('div').classed('dropdown-label', true)
-            .append('text')
-            .text('X Axis Data');
-
-        xWrap.append('div').attr('id', 'dropdown_x').classed('dropdown', true).append('div').classed('dropdown-content', true)
-            .append('select');
-
-        let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
-
-        yWrap.append('div').classed('dropdown-label', true)
-            .append('text')
-            .text('Y Axis Data');
-
-        yWrap.append('div').attr('id', 'dropdown_y').classed('dropdown', true).append('div').classed('dropdown-content', true)
-            .append('select');
-
-        d3.selectAll('#dropdown_x')
-            .on("change", function (d) {
-                let dropdownX = d;
-            })
-
-        d3.selectAll('#dropdown_y')
-            .on("change", function (d){
-                let dropdownY = d;
-            })
-
+            let xaxis = svgGroup.append("g")
+                .classed("x-axis", true)
+                .attr("id", "x-axis" + i);
+        
+            let yaxis = d3.select(".plot-svg").append("g")
+                .classed("y-axis", true)
+                .attr("id", "y-axis" + i);
+        
+            xaxis.append("text")
+                .classed("axis-label-x", true)
+                .attr("transform", "translate("+(5*this.margin.left)+"," +(2*this.margin.top)+")")
+                .attr("text-anchor", "middle")
+                .attr("class", "axis-label")
+                .attr("class", "x-label");
+        
+            yaxis.append("text")
+                .classed("axis-label-y", true)
+                .attr("transform", "translate(-"+(this.margin.left) + ","+(this.h/2)+")rotate(-90)")
+                .attr("class", "axis-label")
+                .attr("text-anchor", "middle")
+                .attr("class", "y-label"); 
+        
+            let dropdownWrap = d3.select('#chart'+i).append('div').classed('dropdown-wrapper', true);
+        
+            let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
+        
+            xWrap.append('div').classed('dropdown-label', true)
+                .append('text')
+                .text('X Axis Data');
+        
+            xWrap.append('div').attr('id', 'dropdown_x'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
+                .append('select');
+        
+            let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
+        
+            yWrap.append('div').classed('dropdown-label', true)
+                .append('text')
+                .text('Y Axis Data');
+        
+            yWrap.append('div').attr('id', 'dropdown_y'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
+                .append('select');
+        
+            d3.selectAll('#dropdown_x')
+                .on("change", function (d) {
+                    let dropdownX = d;
+                })
+        
+            d3.selectAll('#dropdown_y')
+                .on("change", function (d){
+                    let dropdownY = d;
+                })
+        }
     }
 
         /**
@@ -128,57 +129,59 @@ class visuals {
             });
         }
 
-        /* X DROPDOWN */
-        let dropX = dropDownWrapper.select('#dropdown_x').select('.dropdown-content').select('select');
+        for (let i = 1; i < 5; i++) {
+            /* X DROPDOWN */
+            let dropX = dropDownWrapper.select('#dropdown_x'+i).select('.dropdown-content').select('select');
 
-        let optionsX = dropX.selectAll('option')
-            .data(dropData);
+            let optionsX = dropX.selectAll('option')
+                .data(dropData);
 
-        optionsX.exit().remove();
+            optionsX.exit().remove();
 
-        let optionsXEnter = optionsX.enter()
-            .append('option')
-            .attr('value', (d, i) => d.indicator);
+            let optionsXEnter = optionsX.enter()
+                .append('option')
+                .attr('value', (d, i) => d.indicator);
 
-        optionsXEnter.append('text')
-            .text((d, i) => d.indicator_name);
+            optionsXEnter.append('text')
+                .text((d, i) => d.indicator_name);
 
-        optionsX = optionsXEnter.merge(optionsX);
+            optionsX = optionsXEnter.merge(optionsX);
 
-        let selectedX = optionsX.filter(d => d.indicator === xIndicator)
-            .attr('selected', true);
+            let selectedX = optionsX.filter(d => d.indicator === xIndicator)
+                .attr('selected', true);
 
-        dropX.on('change', function (d, i) {
-            let xValue = this.options[this.selectedIndex].value;
-            let yValue = dropY.node().value;
-            that.updateChart(xValue, yValue);
-        });
+            dropX.on('change', function (d, i) {
+                let xValue = this.options[this.selectedIndex].value;
+                let yValue = dropY.node().value;
+                that.updateChart(xValue, yValue);
+            });
 
-        /* Y DROPDOWN */
-        let dropY = dropDownWrapper.select('#dropdown_y').select('.dropdown-content').select('select');
+            /* Y DROPDOWN */
+            let dropY = dropDownWrapper.select('#dropdown_y'+i).select('.dropdown-content').select('select');
 
-        let optionsY = dropY.selectAll('option')
-            .data(dropData);
+            let optionsY = dropY.selectAll('option')
+                .data(dropData);
 
-        optionsY.exit().remove();
+            optionsY.exit().remove();
 
-        let optionsYEnter = optionsY.enter()
-            .append('option')
-            .attr('value', (d, i) => d.indicator);
+            let optionsYEnter = optionsY.enter()
+                .append('option')
+                .attr('value', (d, i) => d.indicator);
 
-        optionsY = optionsYEnter.merge(optionsY);
+            optionsY = optionsYEnter.merge(optionsY);
 
-        optionsYEnter.append('text')
-            .text((d, i) => d.indicator_name);
+            optionsYEnter.append('text')
+                .text((d, i) => d.indicator_name);
 
-        let selectedY = optionsY.filter(d => d.indicator === yIndicator)
-            .attr('selected', true);
+            let selectedY = optionsY.filter(d => d.indicator === yIndicator)
+                .attr('selected', true);
 
-        dropY.on('change', function (d, i) {
-            let yValue = this.options[this.selectedIndex].value;
-            let xValue = dropX.node().value;
-            that.updateChart(xValue, yValue);
-        });
+            dropY.on('change', function (d, i) {
+                let yValue = this.options[this.selectedIndex].value;
+                let xValue = dropX.node().value;
+                that.updateChart(xValue, yValue);
+            });
+        }
 
     }
 

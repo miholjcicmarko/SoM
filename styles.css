@@ -67,6 +67,14 @@
     text-align: center;
 }
 
+#charts {
+    grid-area: main;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
 
 
 /* hw3 styling */
