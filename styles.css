@@ -90,6 +90,10 @@
     font-size: 11px;
 }
 
+.dropdown-label {
+    font-size: 11px;
+}
+
 div.toggle-panel {
     display: block;
     width: 100%;

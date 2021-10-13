@@ -82,7 +82,7 @@ class visuals {
 
         let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
 
-        xWrap.append('div').classed('x-label', true)
+        xWrap.append('div').classed('dropdown-label', true)
             .append('text')
             .text('X Axis Data');
 
@@ -91,7 +91,7 @@ class visuals {
 
         let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
 
-        yWrap.append('div').classed('y-label', true)
+        yWrap.append('div').classed('dropdown-label', true)
             .append('text')
             .text('Y Axis Data');
 
