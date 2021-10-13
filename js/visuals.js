@@ -12,10 +12,10 @@ class visuals {
 
     constructor (data, custom) {
 
-        this.margin = {top: 10, right: 20, bottom: 10, left: 20};
+        this.margin = {top: 10, right: 30, bottom: 10, left: 30};
         
-        this.w = 500 - this.margin.right - this.margin.left;
-        this.h = 400 - this.margin.bottom - this.margin.top;
+        this.w = 300 - this.margin.right - this.margin.left;
+        this.h = 200 - this.margin.bottom - this.margin.top;
 
         this.data = data;
         this.variables = [];
