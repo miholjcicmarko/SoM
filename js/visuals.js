@@ -12,6 +12,11 @@ class visuals {
 
     constructor (data, custom, updateX, updateY) {
 
+        this.margin = {top: 10, right: 20, bottom: 10, left: 20};
+        
+        this.w = 500 - margin.right - margin.left;
+        this.h = 400 - margin.bottom - margin.top;
+
         this.data = data;
         this.variables = [];
         this.updateX = updateX;
@@ -37,24 +42,8 @@ class visuals {
 
     drawChart (xIndicator, yIndicator) {
 
-        let margin = {top: 10, right: 20, bottom: 10, left: 20};
-        
-        let w = 500 - margin.right - margin.left;
-        let h = 400 - margin.bottom - margin.top;
-
-        let x_var = this.variables[xIndicator];
-        let y_var = this.variables[yIndicator];
-
-        let xdata = [];
-        let ydata = [];
-
-        for (let i = 0; i < this.data.length; i++) {
-            xdata.push(parseInt(this.data[i][x_var]));
-            ydata.push(parseInt(this.data[i][y_var]));
-        }
-
-        d3.select('#scatter-plot')
-            .append('div').attr('id', 'chart-view');
+        d3.select('#chart1')
+            .append('div').attr('id', 'chart-view1');
 
         d3.select('#chart-view')
             .append('div')
@@ -64,18 +53,18 @@ class visuals {
         let svg = d3.select("#chart-view")
             .append('svg')
             .classed('plot-svg', true)
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom);
+            .attr("width", this.w + this.margin.left + this.margin.right)
+            .attr("height", this.h + this.margin.top + this.margin.bottom);
 
         let svgGroup = d3.select('#chart-view').select('.plot-svg').append('g').classed('wrapper-group', true);
     
         let xaxis = svgGroup.append("g")
             .classed("x-axis", true)
-            .attr("id", "x-axis");
+            .attr("id", "x-axis1");
 
         let yaxis = d3.select(".plot-svg").append("g")
             .classed("y-axis", true)
-            .attr("id", "y-axis");
+            .attr("id", "y-axis1");
 
         xaxis.append("text")
             .classed("axis-label-x", true)
@@ -241,37 +230,54 @@ class visuals {
 
     }
 
-    // drawCharts (number, newBars) {
+    updateChart (xIndicator, yIndicator) {
 
-    //     if (newBars === true) {
-    //         let divBar = document.getElementById("bar")
-    //         while (divBar.firstChild) {
-    //             divBar.removeChild(divBar.firstChild);
-    //         }
-    //     }
+        let x_var = "";
+        let y_var = "";
+        
+        for (let i = 0; i < this.variables.length; i++) {
+            if (this.variables[i] === xIndicator) {
+                x_var = i;
+            }
+            if (this.variables[i] === yIndicator) {
+                y_var = i;
+            }
+        }
 
-    //     svg.append("text")
-    //             .text("Cost ($)")
-    //             .attr("transform", "translate(15,"+(h/2)+")rotate(-90)")
-    //             .attr("text-anchor", "middle");
+        let x_var = this.variables[x_Var];
+        let y_var = this.variables[y_Var];
 
-    //     let bars = d3.selectAll("#bar").selectAll("rect");
+        let xdata = [];
+        let ydata = [];
 
-    //     this.tooltip(bars);
-    // }
+        for (let i = 0; i < this.data.length; i++) {
+            xdata.push(parseInt(this.data[i][x_var]));
+            ydata.push(parseInt(this.data[i][y_var]));
+        }
 
-    // updateChart (number) {
-    //     let that = this;
+        let xScale = d3
+            .scaleLinear()
+            .domain([0, d3.max(xdata)])
+            .range([0, this.w]);
 
-    //     d3.selectAll(".tooltip").remove();
+        let yScale = d3
+            .scaleLinear()
+            .domain([d3.max(ydata), 0])
+            .range([this.margin.bottom,this.h]); 
 
-    //     let new_num = +number;
+        
 
-    //     this.activeNumber = new_num;
+        let that = this;
 
-    //     this.drawBars(new_num, true);
+        d3.selectAll(".tooltip").remove();
 
-    // }
+        let new_num = +number;
+
+        this.activeNumber = new_num;
+
+        this.drawBars(new_num, true);
+
+    }
 
     tooltip (onscreenData) {
         let that = this;
