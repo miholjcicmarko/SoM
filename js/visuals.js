@@ -14,8 +14,8 @@ class visuals {
 
         this.margin = {top: 10, right: 20, bottom: 10, left: 20};
         
-        this.w = 500 - margin.right - margin.left;
-        this.h = 400 - margin.bottom - margin.top;
+        this.w = 500 - this.margin.right - this.margin.left;
+        this.h = 400 - this.margin.bottom - this.margin.top;
 
         this.data = data;
         this.variables = [];
