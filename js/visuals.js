@@ -73,7 +73,7 @@ class visuals {
 
         yaxis.append("text")
             .classed("axis-label-y", true)
-            .attr("transform", "translate(-"+(this.margin.bottom) + ","+(this.h/2)+")rotate(-90)")
+            .attr("transform", "translate(-"+(this.margin.left) + ","+(this.h/2)+")rotate(-90)")
             .attr("class", "axis-label")
             .attr("text-anchor", "middle")
             .attr("class", "y-label"); 
@@ -220,13 +220,13 @@ class visuals {
         let xaxis_data = d3.select('#x-axis1');
 
         xaxis_data.call(d3.axisBottom(xScale).ticks(5))
-            .attr("transform", "translate("+this.margin.left+","+this.h+")")
+            .attr("transform", "translate("+1.5*this.margin.left+","+this.h+")")
             .attr("class", "axis line");
 
         let yaxis = d3.select('#y-axis1');
 
         yaxis.call(d3.axisLeft(yScale).ticks(5))
-            .attr("transform", "translate("+this.margin.left+",0)")
+            .attr("transform", "translate("+1.5*this.margin.left+",0)")
             .attr("class", "axis line");
 
         let xlab = d3.select('.x-label')
@@ -260,7 +260,7 @@ class visuals {
             .join("circle")
             .attr('cx', (d) => xScale(d.xVal))
             .attr('cy', (d) => yScale(d.yVal))
-            .attr('r', (d) => 5)
+            .attr('r', (d) => 4)
             .attr("transform", "translate("+that.margin.left+",0)")
             .attr("fill", (d,i) => that.color(i))
             .attr("id", function (d,i) { return d.id.toUpperCase()});
