@@ -10,7 +10,7 @@ class PlotData {
 
 class visuals {
 
-    constructor (data, custom, updateX, updateY) {
+    constructor (data, custom) {
 
         this.margin = {top: 10, right: 20, bottom: 10, left: 20};
         
@@ -19,8 +19,6 @@ class visuals {
 
         this.data = data;
         this.variables = [];
-        this.updateX = updateX;
-        this.updateY = updateY;
 
         if (custom === false) {
             for (let i = 1; i < data.columns.length; i++) {
