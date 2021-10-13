@@ -11,14 +11,16 @@ class dataSelection {
         let demoData = d3.select("#demoButton");
 
         demoData.on("click", function() {
+            document.getElementById("demoButton").style.color = "black"
+            document.getElementById("demoButton").style.backgroundColor = "silver"
             that.updateData("demo");
         });
 
-        let csv_file = d3.select("#csv");
+        let csv_file = d3.select("#csvUpload");
         csv_file.on("change", function () {
             let reader = new FileReader();
             
-            //reader.readAsText(this.files[0]);
+            reader.readAsText(this.files[0]);
 
             reader.onload = function () {
                 let textData = reader.result;
