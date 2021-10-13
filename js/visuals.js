@@ -110,52 +110,6 @@ class visuals {
                 let dropdownY = d;
             })
 
-        let xScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(xdata)])
-            .range([0, w]);
-
-        let yScale = d3
-            .scaleLinear()
-            .domain([d3.max(ydata), 0])
-            .range([margin.bottom,h]);  
-            
-        //let yaxis = svg.append("g")
-                    .attr("id", "y-axis");
-        
-        yaxis.call(d3.axisLeft(yScale).ticks(5))
-                .attr("transform", "translate(" + margin.left + "," + "0)")
-                .attr("class", "axis_line");
-
-        let xaxis = svg.append("g")
-                    .attr("id", "x-axis")
-                    .attr("transform", "translate(" +margin.left+ "," +(h)+")")
-                    .call(d3.axisBottom(xScale));
-
-        let plotData_arr = [];
-
-        for (let i = 0; i < this.data.length; i++) {
-            let datapoint = new PlotData(this.data[i]["ID"], this.data[i][x_var],
-                                        this.data[i][y_var]);
-                plotData_arr.push(datapoint);
-        }
-
-        let that = this;
-
-        d3.select('#plot-svg').selectAll("circle")
-            .data(plotData_arr)
-            .join("circle")
-            .attr('cx', (d) => xScale(d.xVal))
-            .attr('cy', (d) => yScale(d.yVal))
-            .attr('r', (d) => 5)
-            .attr("transform", "translate("+margin.left+",0)")
-            .attr("fill", (d,i) => that.color(i))
-            .attr("id", function (d,i) { return d.id.toUpperCase()});
-
-        let data_circ = d3.selectAll("#chart").selectAll("circle");
-
-        that.tooltip(data_circ);
-
     }
 
         /**
@@ -265,17 +219,57 @@ class visuals {
             .domain([d3.max(ydata), 0])
             .range([this.margin.bottom,this.h]); 
 
-        
+        let xaxis_data = d3.select('#x-axis1');
+
+        xaxis_data.call(d3.axisBottom(xScale).ticks(5))
+            .attr("transform", "translate("+this.margin.left+","+this.height+")")
+            .attr("class", "axis line");
+
+        let yaxis = d3.select('#y-axis1');
+
+        yaxis.call(d3.axisLeft(yScale).ticks(5))
+            .attr("transform", "translate("+this.margin.left+",0)")
+            .attr("class", "axis line");
+
+        let xlab = d3.select('.x-label')
+            .text(function() { return "" + xIndicator});
+
+        xlab.attr("text-anchor", "middle")
+            .attr("class", "axis label")
+            .attr("class", "x-label")
+            .attr("fill", "black");
+
+        let ylab = d3.select('.ylabel')
+            .text(function () { return "" + yIndicator});
+
+        ylab.attr("text-anchor", "middle")
+            .attr("class", "axis label")
+            .attr("class", "y-label")
+            .attr("fill", "black");
+
+        let plotData_arr = [];
+
+        for (let i = 0; i < this.data.length; i++) {
+            let datapoint = new PlotData(this.data[i]["ID"], this.data[i][x_var],
+                                        this.data[i][y_var]);
+                plotData_arr.push(datapoint);
+        }
 
         let that = this;
 
-        d3.selectAll(".tooltip").remove();
+        d3.select('#plot-svg').selectAll("circle")
+            .data(plotData_arr)
+            .join("circle")
+            .attr('cx', (d) => xScale(d.xVal))
+            .attr('cy', (d) => yScale(d.yVal))
+            .attr('r', (d) => 5)
+            .attr("transform", "translate("+margin.left+",0)")
+            .attr("fill", (d,i) => that.color(i))
+            .attr("id", function (d,i) { return d.id.toUpperCase()});
 
-        let new_num = +number;
+        let data_circ = d3.selectAll("#chart").selectAll("circle");
 
-        this.activeNumber = new_num;
-
-        this.drawBars(new_num, true);
+        that.tooltip(data_circ);
 
     }
 
