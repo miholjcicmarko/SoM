@@ -18,7 +18,7 @@ class dataSelection {
         csv_file.on("change", function () {
             let reader = new FileReader();
             
-            reader.readAsText(this.files[0]);
+            //reader.readAsText(this.files[0]);
 
             reader.onload = function () {
                 let textData = reader.result;
