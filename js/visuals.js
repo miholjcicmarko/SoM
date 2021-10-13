@@ -88,7 +88,7 @@ class visuals {
                 .text('X Axis Data');
         
             xWrap.append('div').attr('id', 'dropdown_x'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
-                .append('select');
+                .append('select'+i);
         
             let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
         
@@ -97,7 +97,7 @@ class visuals {
                 .text('Y Axis Data');
         
             yWrap.append('div').attr('id', 'dropdown_y'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
-                .append('select');
+                .append('select'+i);
         
             d3.selectAll('#dropdown_x')
                 .on("change", function (d) {
@@ -131,7 +131,7 @@ class visuals {
 
         for (let i = 1; i < 5; i++) {
             /* X DROPDOWN */
-            let dropX = dropDownWrapper.select('#dropdown_x'+i).select('.dropdown-content').select('select');
+            let dropX = dropDownWrapper.select('#dropdown_x'+i).select('.dropdown-content').select('select'+i);
 
             let optionsX = dropX.selectAll('option')
                 .data(dropData);
@@ -157,7 +157,7 @@ class visuals {
             });
 
             /* Y DROPDOWN */
-            let dropY = dropDownWrapper.select('#dropdown_y'+i).select('.dropdown-content').select('select');
+            let dropY = dropDownWrapper.select('#dropdown_y'+i).select('.dropdown-content').select('select'+i);
 
             let optionsY = dropY.selectAll('option')
                 .data(dropData);
