@@ -75,7 +75,34 @@
     width: 100%;
 }
 
+#charts-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: auto;
+}
 
+#chart1 {
+    grid-column: 1;
+    grid-row: 1; 
+}
+
+#chart2 {
+    grid-column: 2;
+    grid-row: 1; 
+}
+
+#chart3 {
+    grid-column: 3;
+    grid-row: 1; 
+}
+
+#chart4 {
+    grid-column: 4;
+    grid-row: 1; 
+}
 
 /* hw3 styling */
 #scatter-plot {
