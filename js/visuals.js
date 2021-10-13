@@ -55,7 +55,7 @@ class visuals {
                 .attr("width", this.w + this.margin.left + this.margin.right)
                 .attr("height", this.h + this.margin.top + this.margin.bottom);
 
-            let svgGroup = d3.select('#chart-view1').select('.plot-svg').append('g').classed('wrapper-group', true);
+            let svgGroup = d3.select('#chart-view' + i).select('.plot-svg').append('g').classed('wrapper-group', true);
     
             let xaxis = svgGroup.append("g")
                 .classed("x-axis", true)
