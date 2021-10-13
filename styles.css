@@ -135,7 +135,7 @@ div.dropdown-wrapper {
 }
 
 .button:active {
-    box-shadow: 5px rgb(134, 124, 189);
+    box-shadow: 5px rgb(68, 45, 196);
     transform: translateY(4px);
 }
 

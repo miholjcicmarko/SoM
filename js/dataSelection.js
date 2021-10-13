@@ -11,8 +11,6 @@ class dataSelection {
         let demoData = d3.select("#demoButton");
 
         demoData.on("click", function() {
-            document.getElementById("demoButton").style.color = "black"
-            document.getElementById("demoButton").style.backgroundColor = "silver"
             that.updateData("demo");
         });
 
