@@ -27,6 +27,8 @@ class dataSelection {
                 textData = textData.split("/\r\n|\n/");
                 let customData = jQuery.csv.toObjects(textData[0]);
                 that.custom = true;
+                document.getElementById("demoButton").style.color = "white"
+                document.getElementById("demoButton").style.backgroundColor = "rgb(134, 124, 189)"
                 that.updateData("custom", customData);
             }
         });
