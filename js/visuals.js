@@ -157,7 +157,8 @@ class visuals {
             dropX.on('change', function (d, i) {
                 let xValue = this.options[this.selectedIndex].value;
                 let yValue = dropY.node().value;
-                that.updateChart(xValue, yValue);
+                let location = d.path[2].id.slice(-1);
+                that.updateChart(xValue, yValue,location);
             });
 
             /* Y DROPDOWN */
@@ -183,7 +184,8 @@ class visuals {
             dropY.on('change', function (d, i) {
                 let yValue = this.options[this.selectedIndex].value;
                 let xValue = dropX.node().value;
-                that.updateChart(xValue, yValue);
+                let location = d.path[2].id.slice(-1);
+                that.updateChart(xValue, yValue,location);
             });
         }
 
@@ -262,7 +264,7 @@ class visuals {
 
         let that = this;
 
-        d3..select("#chart-view"+location).select('.plot-svg').selectAll("circle")
+        d3.select("#chart-view"+location).select('.plot-svg').selectAll("circle")
             .data(plotData_arr)
             .join("circle")
             .attr('cx', (d) => xScale(d.xVal))
