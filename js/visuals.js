@@ -272,6 +272,8 @@ class visuals {
             .attr('r', (d) => 4)
             .attr("transform", "translate("+that.margin.left+",0)")
             .attr("fill", (d,i) => that.color(i))
+            .attr("stroke", "black")
+            .attr("troke-width", "2")
             .attr("id", function (d,i) { return d.id.toUpperCase() + "" + location});
 
         let data_circ = d3.selectAll("#chart"+location).selectAll("circle");
