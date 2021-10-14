@@ -272,7 +272,7 @@ class visuals {
             .attr('r', (d) => 4)
             .attr("transform", "translate("+that.margin.left+",0)")
             .attr("fill", (d,i) => that.color(i))
-            .attr("id", function (d,i) { return d.id.toUpperCase()});
+            .attr("id", function (d,i) { return d.id.toUpperCase() + "" + location});
 
         let data_circ = d3.selectAll("#chart"+location).selectAll("circle");
 
@@ -290,6 +290,7 @@ class visuals {
             let pageY = d.clientY + 5;
             
             d3.select(this).classed("hovered",true);
+            that.createTempCircle(this, true);
 
             tooltip.transition()
                 .duration(200)
@@ -302,6 +303,7 @@ class visuals {
 
         onscreenData.on("mouseout", function(d,i) {
             d3.select(this).classed("hovered",false);
+            that.createTempCircle(this, false);
 
             tooltip.transition()
                 .duration(500)
@@ -310,10 +312,28 @@ class visuals {
     }
 
     tooltipDivRender (data){
-        let id = data.currentTarget.id;
+        let id = data.currentTarget.id.slice(0,-1);
 
         return "<h5>" + id + "<br/>";
 
     }    
+
+    createTempCircle (item, boolean) {
+
+        let this_chart = parseInt(item.id.slice(-1),10);
+        let item_id = item.id.slice(0,-1);
+
+        for (let i = 1; i < 5; i++) {
+            if (this_chart !== i && boolean === true) {
+                let circle = d3.select("#chart-view"+i).select('.plot-svg').select("#"+item_id + i);
+                circle.classed('hovered', true);
+            }
+            else if (this_chart !== i && boolean === false) {
+                let circle = d3.select("#chart-view"+i).select('.plot-svg').select("#"+item_id + i);
+                circle.classed('hovered', false);
+            }
+        }
+
+    }
 
 }
