@@ -40,7 +40,9 @@ Promise.all([exampleData]).then(data => {
         }
         else {
             let plots = new visuals(data, custom);
-            plots.updateChart(0,1);
+            for (let i = 1; i < 5; i++) {
+                plots.updateChart(0,1,i);
+            }
         }
 
 

@@ -61,7 +61,7 @@ class visuals {
                 .classed("x-axis", true)
                 .attr("id", "x-axis" + i);
         
-            let yaxis = d3.select(".plot-svg").append("g")
+            let yaxis = svgGroup.append("g")
                 .classed("y-axis", true)
                 .attr("id", "y-axis" + i);
         
@@ -70,16 +70,20 @@ class visuals {
                 .attr("transform", "translate("+(5*this.margin.left)+"," +(2*this.margin.top)+")")
                 .attr("text-anchor", "middle")
                 .attr("class", "axis-label")
-                .attr("class", "x-label");
+                .attr("class", "x-label")
+                .attr("id", "x-label"+i);
         
             yaxis.append("text")
                 .classed("axis-label-y", true)
                 .attr("transform", "translate(-"+(this.margin.left) + ","+(this.h/2)+")rotate(-90)")
                 .attr("class", "axis-label")
                 .attr("text-anchor", "middle")
-                .attr("class", "y-label"); 
+                .attr("class", "y-label")
+                .attr("id", "y-label"+i);
         
-            let dropdownWrap = d3.select('#chart'+i).append('div').classed('dropdown-wrapper', true);
+            let dropdownWrap = d3.select('#chart'+i).append('div')
+                .classed('dropdown-wrapper', true)
+                .attr("id", "dropdown-wrapper"+i);
         
             let xWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
         
@@ -88,7 +92,7 @@ class visuals {
                 .text('X Axis Data');
         
             xWrap.append('div').attr('id', 'dropdown_x'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
-                .append('select'+i);
+                .append('select');
         
             let yWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
         
@@ -97,7 +101,7 @@ class visuals {
                 .text('Y Axis Data');
         
             yWrap.append('div').attr('id', 'dropdown_y'+i).classed('dropdown', true).append('div').classed('dropdown-content', true)
-                .append('select'+i);
+                .append('select');
         
             d3.selectAll('#dropdown_x')
                 .on("change", function (d) {
@@ -119,7 +123,6 @@ class visuals {
     drawDropDown(xIndicator, yIndicator) {
 
         let that = this;
-        let dropDownWrapper = d3.select('.dropdown-wrapper');
         let dropData = [];
 
         for (let key in this.variables) {
@@ -130,8 +133,9 @@ class visuals {
         }
 
         for (let i = 1; i < 5; i++) {
+            let dropDownWrapper = d3.select('#dropdown-wrapper'+i);
             /* X DROPDOWN */
-            let dropX = dropDownWrapper.select('#dropdown_x'+i).select('.dropdown-content').select('select'+i);
+            let dropX = dropDownWrapper.select('#dropdown_x'+i).select('.dropdown-content').select('select');
 
             let optionsX = dropX.selectAll('option')
                 .data(dropData);
@@ -157,7 +161,7 @@ class visuals {
             });
 
             /* Y DROPDOWN */
-            let dropY = dropDownWrapper.select('#dropdown_y'+i).select('.dropdown-content').select('select'+i);
+            let dropY = dropDownWrapper.select('#dropdown_y'+i).select('.dropdown-content').select('select');
 
             let optionsY = dropY.selectAll('option')
                 .data(dropData);
@@ -185,7 +189,7 @@ class visuals {
 
     }
 
-    updateChart (xIndicator, yIndicator) {
+    updateChart (xIndicator, yIndicator, location) {
 
         let x_VarIndx = 0;
         let y_VarIndx = 0;
@@ -220,19 +224,19 @@ class visuals {
             .domain([d3.max(ydata), 0])
             .range([this.margin.bottom,this.h]); 
 
-        let xaxis_data = d3.select('#x-axis1');
+        let xaxis_data = d3.select('#x-axis'+location);
 
         xaxis_data.call(d3.axisBottom(xScale).ticks(5))
             .attr("transform", "translate("+1.5*this.margin.left+","+this.h+")")
             .attr("class", "axis line");
 
-        let yaxis = d3.select('#y-axis1');
+        let yaxis = d3.select('#y-axis'+location);
 
         yaxis.call(d3.axisLeft(yScale).ticks(5))
             .attr("transform", "translate("+1.5*this.margin.left+",0)")
             .attr("class", "axis line");
 
-        let xlab = d3.select('.x-label')
+        let xlab = d3.select('#x-label'+location)
             .text(function() { return "" + x_var});
 
         xlab.attr("text-anchor", "middle")
@@ -240,7 +244,7 @@ class visuals {
             .attr("class", "x-label")
             .attr("fill", "black");
 
-        let ylab = d3.select('.y-label')
+        let ylab = d3.select('#y-label'+location)
             .text(function () { return "" + y_var});
 
         ylab.attr("text-anchor", "middle")
@@ -258,7 +262,7 @@ class visuals {
 
         let that = this;
 
-        d3.select('.plot-svg').selectAll("circle")
+        d3..select("#chart-view"+location).select('.plot-svg').selectAll("circle")
             .data(plotData_arr)
             .join("circle")
             .attr('cx', (d) => xScale(d.xVal))
@@ -268,7 +272,7 @@ class visuals {
             .attr("fill", (d,i) => that.color(i))
             .attr("id", function (d,i) { return d.id.toUpperCase()});
 
-        let data_circ = d3.selectAll("#chart1").selectAll("circle");
+        let data_circ = d3.selectAll("#chart"+location).selectAll("circle");
 
         that.tooltip(data_circ);
 
