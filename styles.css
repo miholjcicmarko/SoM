@@ -238,8 +238,8 @@ div.dropdown-wrapper {
 
 .hovered {
     fill: purple;
-    stroke: orangered;
-    stroke-width: 2;
+    stroke: purple;
+    stroke-width: 7;
     opacity: 1;
 }
 
