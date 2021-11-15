@@ -18,7 +18,12 @@ class visuals {
         this.h = 300 - this.margin.bottom - this.margin.top;
 
         this.data = data;
+        this.resetData = data;
         this.variables = [];
+        this.slider = true;
+        this.filterVal = null;
+        this.chosenFilter = null;
+        this.drawFilterBar();
 
         if (custom === false) {
             for (let i = 1; i < data.columns.length; i++) {
@@ -35,6 +40,13 @@ class visuals {
 
         this.drawChart();
         this.drawDropDown();
+
+        this.xIndicators = [this.variables[0], this.variables[0], 
+                            this.variables[0], this.variables[0], 
+                            this.variables[0]];
+        this.yIndicators = [this.variables[0], this.variables[0],
+                            this.variables[0], this.variables[0],
+                            this.variables[0]];
 
     }
 
@@ -208,7 +220,7 @@ class visuals {
             });
         }
 
-        let dropdown_filter = dropDownWrapper.select('#dropdown_filter').select('.dropdown-content').select('select');
+        let dropdown_filter = d3.select('#dropdown_filter').select('.dropdown-content').select('select');
 
         let optionsfilter = dropdown_filter.selectAll('option')
                 .data(dropData);
@@ -219,7 +231,7 @@ class visuals {
                 .append('option')
                 .attr('value', (d, i) => d.indicator);
 
-            optionsfilter = optionsfilterEnter.merge(optionsY);
+            optionsfilter = optionsfilterEnter.merge(optionsfilter);
 
             optionsfilterEnter.append('text')
                 .text((d, i) => d.indicator_name);
@@ -228,9 +240,8 @@ class visuals {
                 .attr('selected', true);
 
             dropdown_filter.on('change', function (d, i) {
-                let value = this.options[this.selectedIndex].value;
-                
-                //that.updateChart(xValue, yValue,location);
+                let indicator = this.options[this.selectedIndex].value;
+                that.chosenFilter = indicator;
             });
 
     }
@@ -251,6 +262,9 @@ class visuals {
 
         let x_var = this.variables[x_VarIndx];
         let y_var = this.variables[y_VarIndx];
+
+        this.xIndicators[location] = x_var;
+        this.yIndicators[location] = y_var;
 
         let xdata = [];
         let ydata = [];
@@ -323,6 +337,67 @@ class visuals {
         let data_circ = d3.selectAll("#chart"+location).selectAll("circle");
 
         that.tooltip(data_circ);
+
+    }
+
+    drawFilterBar () {
+        let that = this;
+        that.slider = false;
+
+        let sScale = d3.scaleLinear()
+                            .domain([0, 5])
+                            .range([0, 100]);
+        
+        let sSlider = d3.select('#filterS')
+            .append('div').classed('slider-wrap', true)
+            .append('input').classed('slider', true)
+            .attr('type', 'range')
+            .attr('min', 0)
+            .attr('max', 5)
+            .attr('value', this.filterVal);
+
+        let sliderLabel = d3.select('.slider-wrap')
+            .append('div').classed('slider-label', true)
+            .append('svg').attr("id", "slider-text");
+
+        //if (this.filterVal !== null || this.reset === true || this.activeYear === null) {
+        let sliderText = sliderLabel.append('text')
+            .text(this.filterVal);
+
+            sliderText.attr('x', sScale(this.filterVal));
+            sliderText.attr('y', 25);
+
+        sSlider.on('input', function () {
+            that.slider = true;
+
+            sliderText
+                .text(this.value)
+                .attr('x', sScale(this.value))
+                .attr('y', 25); 
+
+            that.filterData(this.value);
+
+        })
+        
+    }
+
+    filterData (value) {
+        let that = this;
+        this.data = this.resetData;
+        
+        let newData = [];
+        
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i][that.chosenFilter] >= parseInt(value)) {
+                newData.push(this.data[i]);
+            }
+        }
+
+        this.data = newData;
+
+        for (let i = 1; i < 5; i++) {
+            this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
+        }
 
     }
 
