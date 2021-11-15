@@ -22,7 +22,6 @@ class visuals {
         this.variables = [];
         this.slider = true;
         this.filterVal = null;
-        this.chosenFilter = null;
         this.drawFilterBar();
 
         if (custom === false) {
@@ -47,6 +46,7 @@ class visuals {
         this.yIndicators = [this.variables[0], this.variables[0],
                             this.variables[0], this.variables[0],
                             this.variables[0]];
+        this.chosenFilter = this.variables[0];
 
     }
 
