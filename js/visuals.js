@@ -113,6 +113,25 @@ class visuals {
                     let dropdownY = d;
                 })
         }
+
+        let dropdownWrap = d3.select('#filter').append('div')
+                .classed('dropdown-wrapper', true)
+                .attr("id", "dropdown-filter");
+        
+        let filterWrap = dropdownWrap.append('div').classed('dropdown-panel', true);
+        
+        filterWrap.append('div').classed('dropdown-label', true)
+            .append('text')
+            .text('Select Data to Filter');
+        
+        filterWrap.append('div').attr('id', 'dropdown_filter').classed('dropdown', true).append('div').classed('dropdown-content', true)
+                .append('select');
+        
+        d3.selectAll('#dropdown_x')
+            .on("change", function (d) {
+                let dropdownX = d;
+            })
+        
     }
 
         /**
@@ -188,6 +207,31 @@ class visuals {
                 that.updateChart(xValue, yValue,location);
             });
         }
+
+        let dropdown_filter = dropDownWrapper.select('#dropdown_filter').select('.dropdown-content').select('select');
+
+        let optionsfilter = dropdown_filter.selectAll('option')
+                .data(dropData);
+
+        optionsfilter.exit().remove();
+
+        let optionsfilterEnter = optionsfilter.enter()
+                .append('option')
+                .attr('value', (d, i) => d.indicator);
+
+            optionsfilter = optionsfilterEnter.merge(optionsY);
+
+            optionsfilterEnter.append('text')
+                .text((d, i) => d.indicator_name);
+
+            let selectedfilter = optionsfilter.filter(d => d.indicator === yIndicator)
+                .attr('selected', true);
+
+            dropdown_filter.on('change', function (d, i) {
+                let value = this.options[this.selectedIndex].value;
+                
+                //that.updateChart(xValue, yValue,location);
+            });
 
     }
 
