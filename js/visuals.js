@@ -346,7 +346,7 @@ class visuals {
 
         let sScale = d3.scaleLinear()
                             .domain([0, 5])
-                            .range([0, 100]);
+                            .range([5, 495]);
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
