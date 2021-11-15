@@ -312,7 +312,7 @@ Stylings for the different sliders
 
 .slider {
     -webkit-appearance: none;
-    width: 725px;
+    width: 500px;
     height: 15px;
     border-radius: 5px;
     background:rgb(85,37,130);
@@ -345,8 +345,8 @@ Stylings for the different sliders
 }
 
 .slider-label svg {
-    width: 750px;
-    height: 35px;
+    width: 500px;
+    height: 25px;
 }
 
 .slider-label svg text {
@@ -356,5 +356,5 @@ Stylings for the different sliders
 .slider-wrap {
     display: inline-block;
     /* float: left; */
-    width: 750px;
+    width: 500px;
 }
