@@ -22,7 +22,6 @@ class visuals {
         this.variables = [];
         this.slider = true;
         this.filterVal = null;
-        this.drawFilterBar();
 
         if (custom === false) {
             for (let i = 1; i < data.columns.length; i++) {
@@ -37,9 +36,6 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
-        this.drawChart();
-        this.drawDropDown();
-
         this.xIndicators = [this.variables[0], this.variables[0], 
                             this.variables[0], this.variables[0], 
                             this.variables[0]];
@@ -47,6 +43,10 @@ class visuals {
                             this.variables[0], this.variables[0],
                             this.variables[0]];
         this.chosenFilter = this.variables[0];
+
+        this.drawChart();
+        this.drawDropDown();
+        this.drawFilterBar();
 
     }
 
@@ -328,7 +328,7 @@ class visuals {
             .attr('cx', (d) => xScale(d.xVal))
             .attr('cy', (d) => yScale(d.yVal))
             .attr('r', (d) => 4)
-            .attr("transform", "translate("+that.margin.left+",0)")
+            .attr("transform", "translate("+1.5*that.margin.left+",0)")
             .attr("fill", (d,i) => that.color(i))
             .attr("stroke", "black")
             .attr("stroke-width", "2")
@@ -343,14 +343,15 @@ class visuals {
     drawFilterBar () {
         let that = this;
         that.slider = false;
+        let sScale;
 
-        if (this.variables[-1] == "Age") {
-            let sScale = d3.scaleLinear()
+        if (this.variables[this.variables.length-1] == "Age") {
+            sScale = d3.scaleLinear()
                             .domain([19, 43])
                             .range([5, 490]);
         }
         else {
-            let sScale = d3.scaleLinear()
+            sScale = d3.scaleLinear()
                             .domain([0, 5])
                             .range([5, 490]);
         }
@@ -359,8 +360,16 @@ class visuals {
             .append('div').classed('slider-wrap', true)
             .append('input').classed('slider', true)
             .attr('type', 'range')
-            .attr('min', 0)
-            .attr('max', 5)
+            .attr('min', function () { if (that.variables[that.variables.length-1] == "Age") {
+                return 19
+            } else {
+                return 0;
+            }})
+            .attr('max', function () { if (that.variables[that.variables.length-1] == "Age") {
+                return 43
+            } else {
+                return 5;
+            }})
             .attr('value', this.filterVal);
 
         let sliderLabel = d3.select('.slider-wrap')
