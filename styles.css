@@ -88,8 +88,13 @@
 }
 
 #filterWindow {
-    grid-column: 1;
-    grid-row: 1; 
+    grid-column: 3;
+    grid-row: 1;
+    text-align: center;
+}
+
+.expandedWindow {
+    border:  2px solid black;
 }
 
 #charts {

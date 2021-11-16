@@ -346,7 +346,7 @@ class visuals {
 
         let sScale = d3.scaleLinear()
                             .domain([0, 5])
-                            .range([5, 495]);
+                            .range([5, 490]);
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
@@ -398,6 +398,31 @@ class visuals {
         for (let i = 1; i < 5; i++) {
             this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
         }
+
+        this.updateTextDescription(value);
+
+    }
+
+    updateTextDescription (valueSlider) {
+
+        let infodata = {chosenFilter: this.chosenFilter,
+                        value: valueSlider}
+
+        d3.select("#filterWindow").selectAll("text").remove();
+
+        let text_box = d3.select("#filterWindow")
+            .classed("expandedWindow", true);
+
+        text_box.html("Filters Applied <br/>" +
+                infodata.chosenFilter +" >= " + infodata.value)
+
+        //text_box.append("tspan")
+        //    .attr("y", "0.5cm")
+        //    .text("Filters Applied");
+
+        //text_box.append("tspan")
+        //    .attr("y", "1.0cm")
+        //    .text(function() {return infodata.chosenFilter +" >= " + infodata.value});        
 
     }
 
