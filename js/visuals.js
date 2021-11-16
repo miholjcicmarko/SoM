@@ -344,9 +344,16 @@ class visuals {
         let that = this;
         that.slider = false;
 
-        let sScale = d3.scaleLinear()
+        if (this.variables[-1] == "Age") {
+            let sScale = d3.scaleLinear()
+                            .domain([19, 43])
+                            .range([5, 490]);
+        }
+        else {
+            let sScale = d3.scaleLinear()
                             .domain([0, 5])
                             .range([5, 490]);
+        }
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
