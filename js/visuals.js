@@ -463,8 +463,6 @@ class visuals {
 
         let buttons = d3.select('#filterSButtons').selectAll("button");
 
-        let that = this;
-
         buttons.on("click", function (d) {
             let elem_id = d.srcElement.innerHTML;
             that.inequality = elem_id;
