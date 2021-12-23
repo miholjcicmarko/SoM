@@ -508,8 +508,7 @@ class visuals {
         text_box.html("Filters Applied <br/>" +
                 infodata.chosenFilter +" >= " + infodata.value)
 
-        this.resetPresent = true;
-        if (this.resetPresent) {
+        if (!this.resetPresent) {
             let reset = d3.select('#filterWindowReset')
                 .append("button")
                 .attr("class", "button")
@@ -517,6 +516,7 @@ class visuals {
                 .style("margin", "5px");
 
             document.getElementById("reset").innerHTML = "Reset";
+            this.resetPresent = true;
         }
         
         //text_box.append("tspan")
