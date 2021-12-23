@@ -346,34 +346,37 @@ class visuals {
         that.slider = false;
         let sScale;
 
-        
+        let globalvariableVals = [];
 
+        for (let i = 0; i < this.data.length; i++) {
+            globalvariableVals.push(parseInt(this.data[i][""+this.globalFilter]));
+        }
 
-        if (this.variables[this.variables.length-1] == "Age") {
-            sScale = d3.scaleLinear()
-                            .domain([19, 43])
-                            .range([5, 490]);
-        }
-        else {
-            sScale = d3.scaleLinear()
-                            .domain([0, 5])
-                            .range([5, 490]);
-        }
+        sScale = d3.scaleLinear()
+                    .domain([d3.min(globalvariableVals),d3.max(globalvariableVals)])
+                    .range([5, 490]);
+
+        //if (this.variables[this.variables.length-1] == "Age") {
+        //    sScale = d3.scaleLinear()
+        //                    .domain([d3.min(globalvariableVals), d3.max(globalvariableVals)])
+        //                    .range([5, 490]);
+        //}
+        //else {
+        //    sScale = d3.scaleLinear()
+        //                    .domain([0, 5])
+        //                    .range([5, 490]);
+        //}
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
             .append('input').classed('slider', true)
             .attr('type', 'range')
-            .attr('min', function () { if (that.variables[that.variables.length-1] == "Age") {
-                return 19
-            } else {
-                return 0;
-            }})
-            .attr('max', function () { if (that.variables[that.variables.length-1] == "Age") {
-                return 43
-            } else {
-                return 5;
-            }})
+            .attr('min', function () {
+                return d3.min(globalvariableVals);
+            })
+            .attr('max', function () { 
+                return d3.max(globalvariableVals);
+            })
             .attr('value', this.filterVal);
 
         let sliderLabel = d3.select('.slider-wrap')
