@@ -327,7 +327,7 @@ class visuals {
             .join("circle")
             .attr('cx', (d) => xScale(d.xVal))
             .attr('cy', (d) => yScale(d.yVal))
-            .attr('r', (d) => 4)
+            .attr('r', (d) => 3)
             .attr("transform", "translate("+1.5*that.margin.left+",0)")
             .attr("fill", (d,i) => that.color(i))
             .attr("stroke", "black")
@@ -344,6 +344,8 @@ class visuals {
         let that = this;
         that.slider = false;
         let sScale;
+
+        
 
         if (this.variables[this.variables.length-1] == "Age") {
             sScale = d3.scaleLinear()
