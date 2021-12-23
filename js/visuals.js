@@ -44,6 +44,7 @@ class visuals {
                             this.variables[0]];
         this.chosenFilter = this.variables[0];
         this.globalFilter = this.variables[0];
+        this.resetPresent = false;
 
         this.drawChart();
         this.drawDropDown();
@@ -507,13 +508,17 @@ class visuals {
         text_box.html("Filters Applied <br/>" +
                 infodata.chosenFilter +" >= " + infodata.value)
 
-        let reset = d3.select('#filterWindowReset')
+        this.resetPresent = true;
+        if (this.resetPresent) {
+            let reset = d3.select('#filterWindowReset')
                 .append("button")
                 .attr("class", "button")
                 .attr("id", "reset")
                 .style("margin", "5px");
 
-        document.getElementById("reset").innerHTML = "Reset";
+            document.getElementById("reset").innerHTML = "Reset";
+        }
+        
         //text_box.append("tspan")
         //    .attr("y", "0.5cm")
         //    .text("Filters Applied");
