@@ -43,6 +43,7 @@ class visuals {
                             this.variables[0], this.variables[0],
                             this.variables[0]];
         this.chosenFilter = this.variables[0];
+        this.globalFilter = this.variables[0];
 
         this.drawChart();
         this.drawDropDown();
@@ -346,6 +347,7 @@ class visuals {
         let sScale;
 
         
+
 
         if (this.variables[this.variables.length-1] == "Age") {
             sScale = d3.scaleLinear()
