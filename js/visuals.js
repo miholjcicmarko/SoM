@@ -419,7 +419,12 @@ class visuals {
            .text("Filters Applied");
 
         let box = d3.select('#filterBlank')
+                    .append("svg")
                     .append("rect")
+                    .attr('x', 10)
+                    .attr('y', 10)
+                    .attr('width', 10)
+                    .attr('height', 10)
                     .attr("opacity", 0);
         
         let button1 = d3.select('#filterSButtons')
