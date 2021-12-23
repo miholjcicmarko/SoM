@@ -45,6 +45,7 @@ class visuals {
         this.chosenFilter = this.variables[0];
         this.globalFilter = this.variables[0];
         this.resetPresent = false;
+        this.inequality = "";
 
         this.drawChart();
         this.drawDropDown();
@@ -458,20 +459,25 @@ class visuals {
         document.getElementById("equal").innerHTML = "=";
         document.getElementById("submit").innerHTML = "submit";
 
+        this.inequality = ">";
+
         let buttons = d3.select('#filterSButtons').selectAll("button");
 
+        let that = this;
+
         buttons.on("click", function (d) {
-            let elem_id = d.srcElement.id;
-            // let chosenLineId = elem_id.slice(0, elem_id.length - 4);
-            // if (that.chosenLineVar[0] !== chosenLineId) {
-            //     let buttonsColor = d3.select("#timeLButtons").selectAll("button");
-            //     buttonsColor.classed("pressedLineVar", false);
-            //     that.changeTimeLineVarColor(d);
-            //     that.chosenLineVar[0] = chosenLineId;
-            //     that.timelineActive = true;
-            //     that.drawTimeLine(that.raw, that.chosenLineVar);
-            //     d3.select("#timeL").style("opacity", 1);
-            //     }
+            let elem_id = d.srcElement.innerHTML;
+            that.inequality = elem_id;
+            let ids = ["greaterthan", "lesserthan", "equal", "submit"];
+
+            for (let i = 0; i < ids.length; i++) {
+                if (elem_id === ids[i]){
+                    d3.select('#'+ids[i]).classed("pressed", true);
+                }
+                else {
+                    d3.select('#'+ids[i]).classed("pressed", false);
+                }
+            }
         })
     }
 
@@ -507,7 +513,7 @@ class visuals {
         let text_box = d3.select("#filterWindow");
 
         text_box.html("Filters Applied <br/>" +
-                infodata.chosenFilter +" >= " + infodata.value)
+                infodata.chosenFilter + this.inequality + infodata.value)
 
         if (!this.resetPresent) {
             let reset = d3.select('#filterWindowReset')
