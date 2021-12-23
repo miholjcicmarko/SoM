@@ -411,7 +411,7 @@ class visuals {
 
         })
 
-        let text_box = d3.select("#filterWindow")
+        d3.select("#filterWindow")
             .classed("expandedWindow", true);
         
         let button1 = d3.select('#filterSButtons')
