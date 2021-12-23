@@ -243,6 +243,7 @@ class visuals {
             dropdown_filter.on('change', function (d, i) {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
+                that.globalFilter = indicator;
             });
 
     }
