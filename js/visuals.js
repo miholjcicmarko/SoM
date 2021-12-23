@@ -411,6 +411,43 @@ class visuals {
 
         })
         
+        let button1 = d3.select('#filterSButtons')
+                        .append("button")
+                        .attr("class", "button")
+                        .attr("id", "greaterthan")
+                        .style("margin", "5px");
+
+        let button2 = d3.select('#filterSButtons')
+                        .append("button")
+                        .attr("class", "button")
+                        .attr("id", "lesserthan")
+                        .style("margin", "5px");
+
+        let button3 = d3.select('#filterSButtons')
+                        .append("button")
+                        .attr("class", "button")
+                        .attr("id", "submit")
+                        .style("margin", "5px");
+                        
+        document.getElementById("greaterthan").innerHTML = ">";
+        document.getElementById("lesserthan").innerHTML = "<";
+        document.getElementById("submit").innerHTML = "submit";
+
+        let buttons = d3.select('#filterSButtons').selectAll("button");
+
+        buttons.on("click", function (d) {
+            let elem_id = d.srcElement.id;
+            // let chosenLineId = elem_id.slice(0, elem_id.length - 4);
+            // if (that.chosenLineVar[0] !== chosenLineId) {
+            //     let buttonsColor = d3.select("#timeLButtons").selectAll("button");
+            //     buttonsColor.classed("pressedLineVar", false);
+            //     that.changeTimeLineVarColor(d);
+            //     that.chosenLineVar[0] = chosenLineId;
+            //     that.timelineActive = true;
+            //     that.drawTimeLine(that.raw, that.chosenLineVar);
+            //     d3.select("#timeL").style("opacity", 1);
+            //     }
+        })
     }
 
     filterData (value) {
@@ -448,6 +485,13 @@ class visuals {
         text_box.html("Filters Applied <br/>" +
                 infodata.chosenFilter +" >= " + infodata.value)
 
+        let reset = d3.select('#filterWindowReset')
+                .append("button")
+                .attr("class", "button")
+                .attr("id", "submit")
+                .style("margin", "5px");
+
+        document.getElementById("filterWindowReset").innerHTML = "Reset";
         //text_box.append("tspan")
         //    .attr("y", "0.5cm")
         //    .text("Filters Applied");
