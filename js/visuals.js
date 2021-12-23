@@ -426,11 +426,18 @@ class visuals {
         let button3 = d3.select('#filterSButtons')
                         .append("button")
                         .attr("class", "button")
+                        .attr("id", "equal")
+                        .style("margin", "5px");
+
+        let button4 = d3.select('#filterSButtons')
+                        .append("button")
+                        .attr("class", "button")
                         .attr("id", "submit")
                         .style("margin", "5px");
                         
         document.getElementById("greaterthan").innerHTML = ">";
         document.getElementById("lesserthan").innerHTML = "<";
+        document.getElementById("equal").innerHTML = "=";
         document.getElementById("submit").innerHTML = "submit";
 
         let buttons = d3.select('#filterSButtons').selectAll("button");
