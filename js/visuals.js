@@ -486,8 +486,8 @@ class visuals {
 
         d3.select("#filterWindow").selectAll("text").remove();
 
-        let text_box = d3.select("#filterWindow")
-            .classed("expandedWindow", true);
+        let text_box = d3.select("#filterWindow");
+        //    .classed("expandedWindow", true);
 
         text_box.html("Filters Applied <br/>" +
                 infodata.chosenFilter +" >= " + infodata.value)
