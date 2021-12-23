@@ -411,8 +411,12 @@ class visuals {
 
         })
 
-        d3.select("#filterWindow")
+        let text_box = d3.select("#filterWindow")
             .classed("expandedWindow", true);
+
+        text_box.append("tspan")
+           .attr("y", "0.5cm")
+           .text("Filters Applied");
         
         let button1 = d3.select('#filterSButtons')
                         .append("button")
