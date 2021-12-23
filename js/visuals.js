@@ -503,7 +503,6 @@ class visuals {
         d3.select("#filterWindow").selectAll("text").remove();
 
         let text_box = d3.select("#filterWindow");
-        //    .classed("expandedWindow", true);
 
         text_box.html("Filters Applied <br/>" +
                 infodata.chosenFilter +" >= " + infodata.value)
@@ -511,10 +510,10 @@ class visuals {
         let reset = d3.select('#filterWindowReset')
                 .append("button")
                 .attr("class", "button")
-                .attr("id", "submit")
+                .attr("id", "reset")
                 .style("margin", "5px");
 
-        document.getElementById("filterWindowReset").innerHTML = "Reset";
+        document.getElementById("reset").innerHTML = "Reset";
         //text_box.append("tspan")
         //    .attr("y", "0.5cm")
         //    .text("Filters Applied");
