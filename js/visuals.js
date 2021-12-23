@@ -244,6 +244,7 @@ class visuals {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
                 that.globalFilter = indicator;
+                that.drawFilterBar(true);
             });
 
     }
@@ -342,7 +343,14 @@ class visuals {
 
     }
 
-    drawFilterBar () {
+    drawFilterBar (drawn) {
+        if (drawn === true) {
+            let div = document.getElementById("filterS")
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
         let that = this;
         that.slider = false;
         let sScale;
