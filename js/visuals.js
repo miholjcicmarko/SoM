@@ -432,7 +432,8 @@ class visuals {
                         .append("button")
                         .attr("class", "button")
                         .attr("id", "greaterthan")
-                        .style("margin", "5px");
+                        .style("margin", "5px")
+                        .classed("pressed", true);
 
         let button2 = d3.select('#filterSButtons')
                         .append("button")
