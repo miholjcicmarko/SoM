@@ -410,6 +410,9 @@ class visuals {
             that.filterData(this.value);
 
         })
+
+        let text_box = d3.select("#filterWindow")
+            .classed("expandedWindow", true);
         
         let button1 = d3.select('#filterSButtons')
                         .append("button")
