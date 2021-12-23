@@ -417,6 +417,10 @@ class visuals {
         text_box.append("tspan")
            .attr("y", "0.5cm")
            .text("Filters Applied");
+
+        let box = d3.select('#filterBlank')
+                    .append("rect")
+                    .attr("opacity", 0);
         
         let button1 = d3.select('#filterSButtons')
                         .append("button")
