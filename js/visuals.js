@@ -356,13 +356,6 @@ class visuals {
             while (div2.firstChild) {
                 div2.removeChild(div2.firstChild);
             }
-
-            d3.select("#filterWindow").selectAll("text").remove();
-            
-            let text_box = d3.select("#filterWindow")
-            text_box.append("tspan")
-                .attr("y", "0.5cm")
-                .text("Filters Applied");
         }
 
         let that = this;
@@ -541,7 +534,7 @@ class visuals {
         let text_box = d3.select("#filterWindow");
 
         text_box.html("Filters Applied <br/>" +
-                infodata.chosenFilter + " " + this.inequality + infodata.value)
+        infodata.chosenFilter + " " + this.inequality + infodata.value);
 
         if (!this.resetPresent) {
             let reset = d3.select('#filterWindowReset')
