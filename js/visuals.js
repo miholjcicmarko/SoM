@@ -368,20 +368,33 @@ class visuals {
             globalvariableVals.push(parseInt(this.data[i][""+this.globalFilter]));
         }
 
-        sScale = d3.scaleLinear()
+        if (d3.min(globalvariableVals) - d3.max(globalvariableVals) !== 0) {
+            sScale = d3.scaleLinear()
                     .domain([d3.min(globalvariableVals),d3.max(globalvariableVals)])
                     .range([5, 490]);
+        }
+        else (d3.min(globalvariableVals) - d3.max(globalvariableVals) === 0) {
+            sScale = d3.scaleLinear()
+                    .domain([d3.min(globalvariableVals)-1,d3.max(globalvariableVals)+1])
+                    .range([5, 490]);
+        }
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
             .append('input').classed('slider', true)
             .attr('type', 'range')
-            .attr('min', function () {
+            .attr('min', function () { if (d3.min(globalvariableVals) - d3.max(globalvariableVals) === 0) {
+                return d3.min(globalvariableVals) - 1;
+            }
+            else {
                 return d3.min(globalvariableVals);
-            })
-            .attr('max', function () { 
+            }})
+            .attr('max', function () { if (d3.min(globalvariableVals) - d3.max(globalvariableVals) === 0) {
+                return d3.max(globalvariableVals) + 1;
+            }
+            else {
                 return d3.max(globalvariableVals);
-            })
+            }})
             .attr('value', this.filterVal);
 
         let sliderLabel = d3.select('.slider-wrap')
