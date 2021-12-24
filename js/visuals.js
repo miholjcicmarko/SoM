@@ -356,6 +356,13 @@ class visuals {
             while (div2.firstChild) {
                 div2.removeChild(div2.firstChild);
             }
+
+            d3.select("#filterWindow").selectAll("text").remove();
+            
+            let text_box = d3.select("#filterWindow")
+            text_box.append("tspan")
+                .attr("y", "0.5cm")
+                .text("Filters Applied");
         }
 
         let that = this;
@@ -410,10 +417,6 @@ class visuals {
 
         let text_box = d3.select("#filterWindow")
             .classed("expandedWindow", true);
-
-        text_box.append("tspan")
-           .attr("y", "0.5cm")
-           .text("Filters Applied");
 
         let box = d3.select('#filterBlank')
                     .append("svg")
