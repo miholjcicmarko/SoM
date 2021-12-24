@@ -352,6 +352,10 @@ class visuals {
             while (div.firstChild) {
                 div.removeChild(div.firstChild);
             }
+            let div2 = document.getElementById("filterSButtons");
+            while (div2.firstChild) {
+                div2.removeChild(div2.firstChild);
+            }
         }
 
         let that = this;
@@ -508,7 +512,7 @@ class visuals {
         }
         else if (this.inequality === "=") {
             for (let i = 0; i < this.data.length; i++) {
-                if (this.data[i][that.chosenFilter] = parseInt(value)) {
+                if (parseInt(this.data[i][that.chosenFilter]) === parseInt(value)) {
                     newData.push(this.data[i]);
                 }
             }
@@ -534,7 +538,7 @@ class visuals {
         let text_box = d3.select("#filterWindow");
 
         text_box.html("Filters Applied <br/>" +
-                infodata.chosenFilter + this.inequality + infodata.value)
+                infodata.chosenFilter + " " + this.inequality + infodata.value)
 
         if (!this.resetPresent) {
             let reset = d3.select('#filterWindowReset')
