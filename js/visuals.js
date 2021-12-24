@@ -247,6 +247,7 @@ class visuals {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
                 that.globalFilter = indicator;
+                that.data = that.resetData;
                 that.drawFilterBar(true);
             });
 
@@ -373,7 +374,7 @@ class visuals {
                     .domain([d3.min(globalvariableVals),d3.max(globalvariableVals)])
                     .range([5, 490]);
         }
-        else (d3.min(globalvariableVals) - d3.max(globalvariableVals) === 0) {
+        else if (d3.min(globalvariableVals) - d3.max(globalvariableVals) === 0) {
             sScale = d3.scaleLinear()
                     .domain([d3.min(globalvariableVals)-1,d3.max(globalvariableVals)+1])
                     .range([5, 490]);
