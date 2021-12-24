@@ -46,6 +46,7 @@ class visuals {
         this.globalFilter = this.variables[0];
         this.resetPresent = false;
         this.inequality = "";
+        this.filterBarVal;
 
         this.drawChart();
         this.drawDropDown();
@@ -366,17 +367,6 @@ class visuals {
         sScale = d3.scaleLinear()
                     .domain([d3.min(globalvariableVals),d3.max(globalvariableVals)])
                     .range([5, 490]);
-
-        //if (this.variables[this.variables.length-1] == "Age") {
-        //    sScale = d3.scaleLinear()
-        //                    .domain([d3.min(globalvariableVals), d3.max(globalvariableVals)])
-        //                    .range([5, 490]);
-        //}
-        //else {
-        //    sScale = d3.scaleLinear()
-        //                    .domain([0, 5])
-        //                    .range([5, 490]);
-        //}
         
         let sSlider = d3.select('#filterS')
             .append('div').classed('slider-wrap', true)
@@ -410,6 +400,7 @@ class visuals {
                 .attr('y', 25); 
 
             that.filterData(this.value);
+            that.filterBarVal = this.value;
 
         })
 
@@ -464,18 +455,34 @@ class visuals {
         let buttons = d3.select('#filterSButtons').selectAll("button");
 
         buttons.on("click", function (d) {
-            let elem_id = d.srcElement.innerHTML;
-            that.inequality = elem_id;
+            let elem_id = d.srcElement.innerText;
+
+            let inequalityText = "";
+
+            if (elem_id === ">") {
+                inequalityText = "greaterthan";
+                that.inequality = elem_id;
+            }
+            else if (elem_id === "<") {
+                inequalityText = "lesserthan";
+                that.inequality = elem_id;
+            }
+            else if (elem_id === "=") {
+                inequalityText = "equal";
+                that.inequality = elem_id;
+            }
+
             let ids = ["greaterthan", "lesserthan", "equal", "submit"];
 
             for (let i = 0; i < ids.length; i++) {
-                if (elem_id === ids[i]){
+                if (inequalityText === ids[i]){
                     d3.select('#'+ids[i]).classed("pressed", true);
                 }
                 else {
                     d3.select('#'+ids[i]).classed("pressed", false);
                 }
             }
+            that.filterData(that.filterBarVal);
         })
     }
 
@@ -485,12 +492,28 @@ class visuals {
         
         let newData = [];
         
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i][that.chosenFilter] >= parseInt(value)) {
-                newData.push(this.data[i]);
+        if (this.inequality === ">") {
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i][that.chosenFilter] > parseInt(value)) {
+                    newData.push(this.data[i]);
+                }
             }
         }
-
+        else if (this.inequality === "<") {
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i][that.chosenFilter] < parseInt(value)) {
+                    newData.push(this.data[i]);
+                }
+            }
+        }
+        else if (this.inequality === "=") {
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i][that.chosenFilter] = parseInt(value)) {
+                    newData.push(this.data[i]);
+                }
+            }
+        }
+    
         this.data = newData;
 
         for (let i = 1; i < 5; i++) {
