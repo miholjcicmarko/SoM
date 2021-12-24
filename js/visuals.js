@@ -12,6 +12,22 @@ class visuals {
 
     constructor (data, custom) {
 
+        for (let i = 1; i < 5; i++) {
+            let div = document.getElementById("chart" + i);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
+        let divs = ["filter", "filterS", "filterWindow", "filterBlank", "filterSButtons", "filterWindowReset"]
+
+        for (let i = 0; i < divs.length; i++) {
+            let div = document.getElementById(divs[i]);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
         this.margin = {top: 15, right: 30, bottom: 20, left: 30};
         
         this.w = 350 - this.margin.right - this.margin.left;
