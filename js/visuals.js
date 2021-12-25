@@ -57,17 +57,29 @@ class visuals {
             }
         }
 
+        this.catVariables = [];
+        this.numVariables = [];
+
+        for (let i = 0; i < this.variables.length; i++) {
+            if (this.variables[i].substring(this.variables[i].length - 5) === "Categ") {
+                this.catVariables.push(this.variables[i]);
+            }
+            else {
+                this.numVariables.push(this.variables[i]);
+            }
+        }
+
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
-        this.xIndicators = [this.variables[0], this.variables[0], 
-                            this.variables[0], this.variables[0], 
-                            this.variables[0]];
-        this.yIndicators = [this.variables[0], this.variables[0],
-                            this.variables[0], this.variables[0],
-                            this.variables[0]];
+        this.xIndicators = [this.numVariables[0], this.numVariables[0], 
+                            this.numVariables[0], this.numVariables[0], 
+                            this.numVariables[0]];
+        this.yIndicators = [this.numVariables[0], this.numVariables[0],
+                            this.numVariables[0], this.numVariables[0],
+                            this.numVariables[0]];
         this.chosenFilter = this.variables[0];
-        this.globalFilter = this.variables[0];
+        //this.globalFilter = this.variables[0];
         this.resetPresent = false;
         this.inequality = "";
         this.filterBarVal;
@@ -183,9 +195,17 @@ class visuals {
 
         let that = this;
         let dropData = [];
+        let dropFilterData = [];
+
+        for (let key in this.numVariables) {
+            dropData.push({
+                indicator: this.numVariables[key],
+                indicator_name: this.numVariables[key]
+            });
+        }
 
         for (let key in this.variables) {
-            dropData.push({
+            dropFilterData.push({
                 indicator: this.variables[key],
                 indicator_name: this.variables[key]
             });
@@ -251,7 +271,7 @@ class visuals {
         let dropdown_filter = d3.select('#dropdown_filter').select('.dropdown-content').select('select');
 
         let optionsfilter = dropdown_filter.selectAll('option')
-                .data(dropData);
+                .data(dropFilterData);
 
         optionsfilter.exit().remove();
 
@@ -270,7 +290,7 @@ class visuals {
             dropdown_filter.on('change', function (d, i) {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
-                that.globalFilter = indicator;
+                //that.globalFilter = indicator;
                 that.data = that.resetData;
                 that.drawFilterBar(true);
             });
@@ -409,7 +429,7 @@ class visuals {
         let globalvariableVals = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            globalvariableVals.push(parseInt(this.data[i][""+this.globalFilter]));
+            globalvariableVals.push(parseInt(this.data[i][""+this.chosenFilter]));
         }
 
         if (d3.min(globalvariableVals) - d3.max(globalvariableVals) !== 0) {
