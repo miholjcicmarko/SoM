@@ -617,6 +617,8 @@ class visuals {
         let buttons = d3.select('#filterSButtons').selectAll("button");
 
         buttons.on("click", function (d) {
+            let elem_id = d.srcElement.innerText;
+
             
         })
     }
