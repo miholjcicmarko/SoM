@@ -210,6 +210,15 @@ div.dropdown-wrapper {
     padding: 2px;
 }
 
+div.dropdown-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 50%;
+    height: 50%;
+    grid-template-rows: auto;
+}
+
 .dropdown {
     float: right;
 }
