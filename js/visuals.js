@@ -292,7 +292,12 @@ class visuals {
                 that.chosenFilter = indicator;
                 //that.globalFilter = indicator;
                 that.data = that.resetData;
-                that.drawFilterBar(true);
+                if (that.numVariables.indexOf(that.chosenFilter) > -1) {
+                    that.drawFilterBar(true);
+                }
+                else if (that.catVariables.indexOf(that.chosenFilter) > -1) {
+                    that.drawCategoryFilter(true);
+                }
             });
 
     }
@@ -560,6 +565,59 @@ class visuals {
                 }
             }
             that.filterData(that.filterBarVal);
+        })
+    }
+
+    drawCategoryFilter (drawn) {
+        if (drawn === true) {
+            let div = document.getElementById("filterS")
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+            let div2 = document.getElementById("filterSButtons");
+            while (div2.firstChild) {
+                div2.removeChild(div2.firstChild);
+            }
+        }
+
+        let text_box = d3.select("#filterWindow")
+            .classed("expandedWindow", true);
+
+        let box = d3.select('#filterBlank')
+                    .append("svg")
+                    .append("rect")
+                    .attr('x', 10)
+                    .attr('y', 10)
+                    .attr('width', 10)
+                    .attr('height', 10)
+                    .attr("opacity", 0);
+
+        this.slider = false;
+
+        let uniqueCateg = [];
+
+        for (let i = 0; i < this.data.length; i++) {
+            if (uniqueCateg.indexOf(this.data[i][""+this.chosenFilter]) > -1) {
+                uniqueCateg.push(this.chosenFilter);
+            }
+        }
+
+        for (let i = 0; i < this.uniqueCateg.length; i++) {
+            let button = d3.select('#filterSButtons')
+                    .append("button")
+                    .attr("class", "button")
+                    .attr("id", "" + this.uniqueCateg[i])
+                    .style("margin", "5px");       
+
+            document.getElementById("" + this.uniqueCateg[i]).innerHTML = this.uniqueCateg[i];
+        }
+
+        let that = this;
+
+        let buttons = d3.select('#filterSButtons').selectAll("button");
+
+        buttons.on("click", function (d) {
+            
         })
     }
 
