@@ -69,6 +69,14 @@ class visuals {
             }
         }
 
+        for (let i = 0; i < this.data.length; i++) {
+            for (let j = 0; j < this.catVariables.length; j++) {
+                if (this.data[i][this.catVariables[j]] === "-1") {
+                    this.data[i][this.catVariables[j]] = "NA";
+                }
+            }
+        }
+
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
@@ -83,6 +91,7 @@ class visuals {
         this.resetPresent = false;
         this.inequality = "";
         this.filterBarVal;
+        this.catFilter;
 
         this.drawChart();
         this.drawDropDown();
@@ -330,6 +339,14 @@ class visuals {
             ydata.push(parseInt(this.data[i][y_var]));
         }
 
+        let resetx = [];
+        let resety = [];
+
+        for (let i = 0; i < this.resetData.length; i++) {
+            resetx.push(parseInt(this.resetData[i][x_var]));
+            resety.push(parseInt(this.resetData[i][y_var]));
+        }
+
         let xScale;
         let yScale;
 
@@ -345,6 +362,12 @@ class visuals {
                 .domain([0, d3.max(xdata)])
                 .range([0, this.w]);
         }
+        else {
+            xScale = d3
+                .scaleLinear()
+                .domain([d3.min(resetx), d3.max(resetx)])
+                .range([0, this.w]);
+        }
 
         if (d3.min(ydata) < 0) {
             yScale = d3
@@ -358,6 +381,12 @@ class visuals {
                 .domain([d3.max(ydata),0])
                 .range([this.margin.bottom,this.h]);
         } 
+        else {
+            yScale = d3
+                .scaleLinear()
+                .domain([d3.max(resety),d3.min(resety)])
+                .range([this.margin.bottom,this.h]);
+        }
 
         let xaxis_data = d3.select('#x-axis'+location);
 
@@ -430,6 +459,7 @@ class visuals {
         let that = this;
         that.slider = false;
         let sScale;
+        this.catFilter = false;
 
         let globalvariableVals = [];
 
@@ -493,7 +523,8 @@ class visuals {
         let text_box = d3.select("#filterWindow")
             .classed("expandedWindow", true);
 
-        let box = d3.select('#filterBlank')
+        if (drawn !== true) {
+            let box = d3.select('#filterBlank')
                     .append("svg")
                     .append("rect")
                     .attr('x', 10)
@@ -501,6 +532,7 @@ class visuals {
                     .attr('width', 10)
                     .attr('height', 10)
                     .attr("opacity", 0);
+        }
         
         let button1 = d3.select('#filterSButtons')
                         .append("button")
@@ -583,27 +615,18 @@ class visuals {
         let text_box = d3.select("#filterWindow")
             .classed("expandedWindow", true);
 
-        let box = d3.select('#filterBlank')
-                    .append("svg")
-                    .append("rect")
-                    .attr('x', 10)
-                    .attr('y', 10)
-                    .attr('width', 10)
-                    .attr('height', 10)
-                    .attr("opacity", 0);
-
         this.slider = false;
 
-        let uniqueCateg = [];
+        this.uniqueCateg = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            if (uniqueCateg.indexOf(this.data[i][""+this.chosenFilter]) > -1) {
-                uniqueCateg.push(this.chosenFilter);
+            if (this.uniqueCateg.indexOf(this.data[i][""+this.chosenFilter]) === -1) {
+                this.uniqueCateg.push(this.data[i][""+this.chosenFilter]);
             }
         }
 
         for (let i = 0; i < this.uniqueCateg.length; i++) {
-            let button = d3.select('#filterSButtons')
+            let button = d3.select('#filterS')
                     .append("button")
                     .attr("class", "button")
                     .attr("id", "" + this.uniqueCateg[i])
@@ -614,12 +637,22 @@ class visuals {
 
         let that = this;
 
-        let buttons = d3.select('#filterSButtons').selectAll("button");
+        let buttons = d3.select('#filterS').selectAll("button");
 
         buttons.on("click", function (d) {
             let elem_id = d.srcElement.innerText;
 
-            
+            for (let i = 0; i < that.uniqueCateg.length; i++) {
+                if (that.uniqueCateg[i] !== elem_id) {
+                    let button = d3.select('#'+that.uniqueCateg[i]).classed("pressed", false);
+                }
+                else {
+                    let button = d3.select('#'+elem_id).classed("pressed", true);
+                }
+                
+            }
+            that.catFilter = elem_id;
+            that.filterCatData();
         })
     }
 
@@ -661,6 +694,28 @@ class visuals {
 
     }
 
+    filterCatData () {
+        let that = this;
+        this.data = this.resetData;
+
+        let newData = [];
+
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i][that.chosenFilter] === this.catFilter) {
+                newData.push(this.data[i]);
+            }
+        }
+
+        this.data = newData;
+
+        for (let i = 1; i < 5; i++) {
+            this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
+        }
+
+        let value = this.catFilter;
+        this.updateTextDescription(value);
+    }
+
     updateTextDescription (valueSlider) {
 
         let infodata = {chosenFilter: this.chosenFilter,
@@ -670,8 +725,14 @@ class visuals {
 
         let text_box = d3.select("#filterWindow");
 
-        text_box.html("Filters Applied <br/>" +
-        infodata.chosenFilter + " " + this.inequality + infodata.value);
+        if (this.catFilter === false) {
+            text_box.html("Filters Applied <br/>" +
+            infodata.chosenFilter + " " + this.inequality + infodata.value);
+        }
+        else if (this.catFilter !== false) {
+            text_box.html("Filters Applied <br/>" +
+            infodata.chosenFilter + " = "+ infodata.value);
+        }
 
         if (!this.resetPresent) {
             let reset = d3.select('#filterWindowReset')
@@ -682,15 +743,7 @@ class visuals {
 
             document.getElementById("reset").innerHTML = "Reset";
             this.resetPresent = true;
-        }
-        
-        //text_box.append("tspan")
-        //    .attr("y", "0.5cm")
-        //    .text("Filters Applied");
-
-        //text_box.append("tspan")
-        //    .attr("y", "1.0cm")
-        //    .text(function() {return infodata.chosenFilter +" >= " + infodata.value});        
+        }      
 
     }
 
