@@ -49,6 +49,14 @@ class visuals {
             this.variables.shift();
         }
 
+        for (let i = 0; i < this.data.length; i++) {
+            for (let j = 0; j < this.variables.length; j++) {
+                if (this.data[i][this.variables[j]] === "") {
+                    this.data[i][this.variables[j]] = "-1";
+                }
+            }
+        }
+
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
@@ -297,15 +305,34 @@ class visuals {
             ydata.push(parseInt(this.data[i][y_var]));
         }
 
-        let xScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(xdata)])
-            .range([0, this.w]);
+        let xScale;
+        let yScale;
 
-        let yScale = d3
-            .scaleLinear()
-            .domain([d3.max(ydata), 0])
-            .range([this.margin.bottom,this.h]); 
+        if (d3.min(xdata) < 0) {
+            xScale = d3
+                .scaleLinear()
+                .domain([d3.min(xdata), d3.max(xdata)])
+                .range([0, this.w]);
+        }
+        else if (d3.min(xdata) >= 0) {
+            xScale = d3
+                .scaleLinear()
+                .domain([0, d3.max(xdata)])
+                .range([0, this.w]);
+        }
+
+        if (d3.min(ydata) < 0) {
+            yScale = d3
+                .scaleLinear()
+                .domain([d3.max(ydata),d3.min(ydata)])
+                .range([this.margin.bottom,this.h]); 
+        }
+        else if (d3.min(ydata) >= 0) {
+            yScale = d3
+                .scaleLinear()
+                .domain([d3.max(ydata),0])
+                .range([this.margin.bottom,this.h]);
+        } 
 
         let xaxis_data = d3.select('#x-axis'+location);
 
