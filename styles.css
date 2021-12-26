@@ -9,7 +9,8 @@
         "header header header header"
         "main main main main"
         "main main main main"
-        "footerleft footerleft footerright footerright";
+        "footerleft footerleft footerright footerright"
+        "idwindow idwindow idwindow idwindow"
 }
 
 #Introduction {
@@ -418,3 +419,12 @@ Stylings for the different sliders
     cursor: pointer; 
     border: white;
 }
+
+#idShowcase {
+    grid-area: idwindow;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
