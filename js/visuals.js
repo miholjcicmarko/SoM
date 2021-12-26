@@ -98,6 +98,7 @@ class visuals {
         this.drawDropDown();
         this.drawFilterBar();
         this.updateTextDescription();
+        this.drawIdButton();
 
     }
 
@@ -823,6 +824,36 @@ class visuals {
                 circle.classed('hovered', false);
             }
         }
+
+    }
+
+    drawIdButton () {
+
+        let button = d3.select('#idButtonDiv')
+                        .append("button")
+                        .attr("class", "button")
+                        .attr("id", "buttonID")
+                        .style("margin", "5px");
+
+        document.getElementById("buttonID").innerHTML = "Display Current IDs";
+
+        let idButton = d3.select('#idButton').selectAll("button");
+
+        let that = this;
+
+        idButton.on("click", function (d) {
+            d3.select("#idWindow").selectAll("text").remove();
+                
+            let text_box = d3.select("#idWindow").classed("expandedWindow", true);
+
+            let arr_of_ids = [];
+
+            for (let i = 0; i < that.data.length; i++) {
+                arr_of_ids.push(that.data[i]["ID"]);
+            }
+
+            text_box.html("Current IDs <br/>" + arr_of_ids);
+        })
 
     }
 

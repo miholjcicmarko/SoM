@@ -242,14 +242,12 @@ div.dropdown-panel {
     border-color: #fff transparent transparent transparent;
 }
 
-
 /*point the arrow upwards when the select box is open (active):*/
 
 .select-selected.select-arrow-active:after {
     border-color: transparent transparent #fff transparent;
     top: 7px;
 }
-
 
 /*style the items (options), including the selected item:*/
 
@@ -262,7 +260,6 @@ div.dropdown-panel {
     cursor: pointer;
 }
 
-
 /*style items (options):*/
 
 .select-items {
@@ -273,7 +270,6 @@ div.dropdown-panel {
     right: 0;
     z-index: 99;
 }
-
 
 /*hide the items when the select box is closed:*/
 
