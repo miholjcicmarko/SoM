@@ -19,7 +19,8 @@ class visuals {
             }
         }
 
-        let divs = ["filter", "filterS", "filterWindow", "filterBlank", "filterSButtons", "filterWindowReset"]
+        let divs = ["filter", "filterS", "filterWindow", "filterBlank", 
+        "filterSButtons", "filterWindowReset", "idButtonDiv","idWindow"]
 
         for (let i = 0; i < divs.length; i++) {
             let div = document.getElementById(divs[i]);
@@ -894,6 +895,7 @@ class visuals {
 
         this.initialTextDes = true;
         this.updateTextDescription();
+        d3.select("#idWindow").selectAll("text").remove();
     }
 
 }
