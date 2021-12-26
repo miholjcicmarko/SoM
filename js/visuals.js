@@ -100,6 +100,7 @@ class visuals {
         this.drawFilterBar();
         this.updateTextDescription();
         this.drawIdButton();
+        d3.select("#idWindow").classed("expandedWindow", false);
 
     }
 
@@ -866,7 +867,8 @@ class visuals {
             }
         }
 
-        let divs = ["filter", "filterS", "filterWindow", "filterBlank", "filterSButtons", "filterWindowReset"]
+        let divs =["filter", "filterS", "filterWindow", "filterBlank", 
+        "filterSButtons", "filterWindowReset", "idButtonDiv","idWindow"]
 
         for (let i = 0; i < divs.length; i++) {
             let div = document.getElementById(divs[i]);
@@ -888,6 +890,7 @@ class visuals {
         this.drawChart();
         this.drawDropDown();
         this.drawFilterBar();
+        this.drawIdButton();
 
         for (let i = 1; i < 5; i++) {
             this.updateChart(0,1,i);
@@ -895,7 +898,8 @@ class visuals {
 
         this.initialTextDes = true;
         this.updateTextDescription();
-        d3.select("#idWindow").selectAll("text").remove();
+
+        d3.select("#idWindow").classed("expandedWindow", false);
     }
 
 }
