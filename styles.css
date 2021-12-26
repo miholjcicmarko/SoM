@@ -112,7 +112,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
     width: 100%;
-    height: 100%;
+    height: 75px;
     grid-template-rows: auto;
     text-align: center;
 }
@@ -169,16 +169,6 @@
 #chart4 {
     grid-column: 4;
     grid-row: 1; 
-}
-
-/* hw3 styling */
-#scatter-plot {
-    height: 730px;
-}
-
-.wrapper {
-    width: 1600px;
-    margin: auto;
 }
 
 .axis path,
@@ -428,3 +418,21 @@ Stylings for the different sliders
     width: 100%;
 }
 
+#idShowcaseWrapper {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: auto;
+}
+
+#idButtonDiv {
+    grid-column: 1;
+    grid-row: 1; 
+}
+
+#idWindow {
+    grid-column: 2;
+    grid-row: 1;
+}

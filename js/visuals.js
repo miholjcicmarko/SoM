@@ -837,7 +837,7 @@ class visuals {
 
         document.getElementById("buttonID").innerHTML = "Display Current IDs";
 
-        let idButton = d3.select('#idButton').selectAll("button");
+        let idButton = d3.select('#idButtonDiv').selectAll("button");
 
         let that = this;
 
