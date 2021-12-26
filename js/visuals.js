@@ -514,9 +514,28 @@ class visuals {
 
             sliderText
                 .text(this.value)
-                .attr('x', sScale(this.value))
-                .attr('y', 25); 
-
+                .attr('x', function () {
+                    if (this.innerHTML.length >= 2) {
+                        if (sScale(this.innerHTML) < 450) {
+                            return sScale(this.innerHTML)+9+((1/3)*this.innerHTML.length);
+                        }
+                        else {
+                            return sScale(this.innerHTML)-9-((1/3)*this.innerHTML.length);
+                        }
+                    }
+                    else {
+                        return sScale(this.innerHTML)+5;
+                    }
+                })
+                .attr('y', 25)
+                .style("font-size", function () { 
+                    if (this.innerHTML.length >= 2) {
+                        return 12 - (this.innerHTML.length/4);
+                    }
+                    else {
+                        return 12;
+                    }
+                })
             that.filterData(this.value);
             that.filterBarVal = this.value;
 
