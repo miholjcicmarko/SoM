@@ -844,6 +844,7 @@ class visuals {
         let that = this;
 
         idButton.on("click", function (d) {
+            d3.select("#buttonID").classed("pressed", true);
             d3.select("#idWindow").selectAll("text").remove();
                 
             let text_box = d3.select("#idWindow").classed("expandedWindow", true);
