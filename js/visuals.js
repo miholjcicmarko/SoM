@@ -92,10 +92,12 @@ class visuals {
         this.inequality = "";
         this.filterBarVal = 0;
         this.catFilter = "";
+        this.initialTextDes = true;
 
         this.drawChart();
         this.drawDropDown();
         this.drawFilterBar();
+        this.updateTextDescription();
 
     }
 
@@ -734,14 +736,18 @@ class visuals {
 
         let text_box = d3.select("#filterWindow");
 
-        if (this.catFilter === false) {
+        if (this.catFilter === false && this.initialTextDes === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " " + this.inequality + infodata.value);
         }
-        else if (this.catFilter !== false) {
+        else if (this.catFilter !== false && this.initialTextDes === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " = "+ infodata.value);
-        }     
+        }  
+        else if (this.initialTextDes === true) {
+            text_box.html("Filters Applied");
+            this.initialTextDes = false;
+        }   
 
     }
 
@@ -836,6 +842,8 @@ class visuals {
             this.updateChart(0,1,i);
         }
 
+        this.initialTextDes = true;
+        this.updateTextDescription();
     }
 
 }
