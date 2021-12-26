@@ -90,8 +90,8 @@ class visuals {
         //this.globalFilter = this.variables[0];
         this.resetPresent = false;
         this.inequality = "";
-        this.filterBarVal;
-        this.catFilter;
+        this.filterBarVal = 0;
+        this.catFilter = "";
 
         this.drawChart();
         this.drawDropDown();
@@ -598,6 +598,24 @@ class visuals {
             }
             that.filterData(that.filterBarVal);
         })
+
+        if (!this.resetPresent) {
+            let reset = d3.select('#filterWindowReset')
+                .append("button")
+                .attr("class", "button")
+                .attr("id", "reset")
+                .style("margin", "5px");
+
+            document.getElementById("reset").innerHTML = "Reset";
+            this.resetPresent = true;
+        }
+
+        let resetbutton = d3.select('#filterWindowReset').selectAll("button");
+
+        resetbutton.on("click", function (d) {
+            that.resetViz();
+        })
+
     }
 
     drawCategoryFilter (drawn) {
@@ -642,15 +660,6 @@ class visuals {
         buttons.on("click", function (d) {
             let elem_id = d.srcElement.innerText;
 
-            for (let i = 0; i < that.uniqueCateg.length; i++) {
-                if (that.uniqueCateg[i] !== elem_id) {
-                    let button = d3.select('#'+that.uniqueCateg[i]).classed("pressed", false);
-                }
-                else {
-                    let button = d3.select('#'+elem_id).classed("pressed", true);
-                }
-                
-            }
             that.catFilter = elem_id;
             that.filterCatData();
         })
@@ -732,18 +741,7 @@ class visuals {
         else if (this.catFilter !== false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " = "+ infodata.value);
-        }
-
-        if (!this.resetPresent) {
-            let reset = d3.select('#filterWindowReset')
-                .append("button")
-                .attr("class", "button")
-                .attr("id", "reset")
-                .style("margin", "5px");
-
-            document.getElementById("reset").innerHTML = "Reset";
-            this.resetPresent = true;
-        }      
+        }     
 
     }
 
@@ -799,6 +797,43 @@ class visuals {
                 let circle = d3.select("#chart-view"+i).select('.plot-svg').select("#"+item_id + i);
                 circle.classed('hovered', false);
             }
+        }
+
+    }
+
+    resetViz() {
+        for (let i = 1; i < 5; i++) {
+            let div = document.getElementById("chart" + i);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
+        let divs = ["filter", "filterS", "filterWindow", "filterBlank", "filterSButtons", "filterWindowReset"]
+
+        for (let i = 0; i < divs.length; i++) {
+            let div = document.getElementById(divs[i]);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
+        this.data = this.resetData;
+        this.slider = true;
+        this.filterVal = null;
+
+        this.chosenFilter = this.variables[0];
+        this.resetPresent = false;
+        this.inequality = "";
+        this.filterBarVal = 0;
+        this.catFilter = "";
+
+        this.drawChart();
+        this.drawDropDown();
+        this.drawFilterBar();
+
+        for (let i = 1; i < 5; i++) {
+            this.updateChart(0,1,i);
         }
 
     }
