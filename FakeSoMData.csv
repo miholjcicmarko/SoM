@@ -1,9 +1,25 @@
-ID,How would you rate the overall quality of the program?,T1: The trainer was an expert on this topic,T1: The trainer was a skillful teacher,T1: The training was well-organized,T1: The trainer was responsive to audience needs,Trainer 1 Average,Objective 1 (pre-training),Objective 1 (post-training),Objective 2 (pre-training),Objective 2 (post-training),Objective 3 (pre-training),Objective 3 (post-training),Objective 4 (pre-training),Objective 4 (post-training),Objective 5 (pre-training),Objective 5 (post-training),Knowledge Pre Avg,Knowledge Post Avg,T2: The trainer was an expert on this topic.,T2: The trainer was a skillful teacher.,T2: The training was well-organized.,T2: The trainer was responsive to audience needs.,Trainer 2 Average,Age
-xx0984578,2,5,5,5,5,5.0,2,2,2,2,2,2,2,2,3.0,2.0,2.0,2.0,5,5,5,5,5.0,25
-xx0923451,1,1,5,5,5,5.0,2,3,2,3,2,3,2,3,4.0,,2.0,3.0,5,5,5,5,5.0,23
-xx0902345,3,5,5,5,5,5.0,1,3,1,3,1,3,1,3,,5.0,1.0,3.0,5,5,5,5,5.0,30
-xx0912302,5,2,5,5,5,5.0,2,4,2,4,2,4,2,4,2.0,,2.0,4.0,5,5,5,5,5.0,19
-xx0912345,4,4,4,5,5,4.75,2,3,2,3,2,3,1,3,2.0,5.0,1.75,3.0,5,4,5,5,4.75,25
-xx0923111,3,2,4,5,5,4.75,2,3,2,3,2,3,1,3,2.0,3.0,1.75,3.0,5,4,5,5,4.75,37
-xx0984591,2,5,5,5,5,5.0,1,3,1,2,1,2,3,3,,1.0,1.5,2.5,5,5,5,5,5.0,43
-xx0213451,5,3,5,5,5,5.0,1,2,1,2,2,2,2,2,1.0,,1.5,2.0,5,5,5,5,5.0,32
+ID,CityCateg,Registration Zip,Years in HIV Care,PIF3,PIF4,PIF5,PIF601,PIF602,PIF603,PIF604,PIF605,PIF7,PIF8,PIF901,PIF902,PIF903,PIF10,PIF11,PIF3_Specify_OtherNonClinicalCateg,PIF12,PIF13,PIF14,PIF15,PIF16,PIF17,PIF18,PIF19,PIF20,PIF21,PIF22,PIF23,PIFDATECateg,PIF3_Specify_OtherAlliedCateg,PIFIDCateg,PIF4_SpecifyCateg,StateCateg
+id21040716,Sandy,84047,1,17,4,0,0,0,1,0,0,3,8,84109,,,0,0,,0,0.0,0.0,0.0,,,,,,,,,Date10-29-2021,SurgicalTech,moontreemidwiferyatgmaildotcom,,UT
+id21040718,SaltLakeCity,84109,2,18,14,0,0,0,1,0,0,9,23,84109,,,0,0,FrontDeskReceptionist,0,0.0,0.0,1.0,1.0,3.0,44.0,3.0,3.0,3.0,3.0,3.0,Date11-03-2021,,alliedotevansathscdotutahdotedu,ContinuingEducationStudent,UT
+id21040719,Logan,84321,3,1,1,1,0,0,0,0,1,1,1,84109,,,0,0,,1,9.0,1.0,0.0,,,,,,,,,Date11-05-2021,,baileydotjonesathscdotutahdotedu,,UT
+id21040721,SaltLakeCity,84109,4,3,4,1,1,0,0,0,0,1,24,84047,,,0,0,FrontDeskReceptionist,1,1.0,,0.0,,,,,,,,,Date11-01-2021,SurgicalTech,jonnydotjonesathscdotutahdotedu,,UT
+id21040725,SaltLakeCity,84109,5,4,14,0,0,0,1,0,0,3,2,84047,,,0,0,FrontDeskReceptionist,0,1.0,1.0,0.0,,,,,,,,,Date11-02-2021,SurgicalTech,blakedotjacksonathscdotutahdotedu,,UT
+id21040728,SaltLakeCity,84109,6,3,2,0,0,1,0,0,0,2,3,84047,,,0,0,FrontDeskReceptionist,0,0.0,0.0,0.0,,,,,,,,,Date10-28-2021,,suntreemidwiferyatgmaildotcom,,UT
+id21040731,SaltLakeCity,84109,7,4,3,0,0,0,1,0,0,1,6,84047,,,0,0,,1,0.0,0.0,0.0,,,,,,,,,Date10-28-2021,,moonplantidwiferyatgmaildotcom,,UT
+id21040734,SaltLakeCity,84109,8,5,1,0,1,0,0,0,0,2,6,84047,,,0,0,,0,0.0,,0.0,,,,,,,,,Date10-29-2021,,mooncloudmidwiferyatgmaildotcom,,UT
+id21040740,SaltLakeCity,84109,1,6,4,1,0,0,1,0,0,3,5,84047,,,0,0,,1,0.0,,0.0,,,,,,,,,Date10-29-2021,,suncliffmidwiferyatgmaildotcom,GraduateStudent,UT
+id21040741,Logan,84321,2,2,2,0,0,1,0,0,0,9,7,84047,,,0,0,,1,0.0,,0.0,,,,,,,,,Date10-29-2021,,markzuberatgmaildotcom,ContinuingEducationStudent,UT
+id21040744,Logan,84321,3,3,3,0,0,0,1,0,0,2,20,84047,,,0,0,,0,9.0,,0.0,,,,,,,,,Date10-28-2021,,carterdotmorrisathscdotutahdotedu,GraduateStudent,UT
+id21040742,Sandy,84047,2,4,5,1,0,0,0,0,1,3,12,84109,,,0,0,,1,9.0,,0.0,,,,,,,,,Date10-27-2021,,bridgerdotjonesathscdotutahdotedu,GraduateStudent,UT
+id21040745,Sandy,84047,1,5,8,0,0,0,0,0,1,9,11,84109,,,0,0,,0,9.0,0.0,0.0,,,,,,,,,Date10-27-2021,,brookdotjacksonathscdotutahdotedu,ContinuingEducationStudent,UT
+id21040748,Denver,80014,2,1,8,1,0,0,0,0,1,1,13,84109,,,0,0,,1,9.0,0.0,0.0,,,,,,,,,Date10-29-2021,,wendydotjonesathscdotutahdotedu,ContinuingEducationStudent,CO
+id21040750,Denver,80014,3,2,4,0,0,0,0,0,1,2,1,84109,,,0,0,,0,9.0,0.0,0.0,,,,,,,,,Date10-29-2021,,alexdotmorrisonathscdotutahdotedu,ContinuingEducationStudent,CO
+id21040751,Denver,80014,4,12,3,1,0,0,0,0,1,1,4,84109,,,0,0,,1,9.0,0.0,0.0,,,,,,,,,Date11-01-2021,SurgicalTech,jakedotbellathscdotutahdotedu,,CO
+id21040752,Denver,80014,3,3,4,0,0,1,0,0,0,2,14,84109,,,0,0,,0,9.0,1.0,0.0,,,,,,,,,Date10-29-2021,,philjacksonathscdotutahdotedu,,CO
+id21040753,Denver,80014,5,4,5,0,0,1,0,0,0,9,5,80014,,,0,0,,0,9.0,1.0,0.0,,,,,,,,,Date10-28-2021,,corybrooksatyahoodotcom,,CO
+id21040755,FortCollins,80521,4,13,6,1,1,0,0,0,0,1,6,80014,,,0,0,,0,9.0,0.0,0.0,,,,,,,,,Date10-29-2021,,marybrooksatyahoodotcom,,CO
+id21040756,FortCollins,80521,7,12,8,0,0,1,0,0,0,2,7,80014,,,0,0,,1,,0.0,1.0,1.0,22.0,454.0,1.0,2.0,2.0,3.0,3.0,Date10-30-2021,,donavonbrooksatyahoodotcom,,CO
+id21040758,FortCollins,80521,6,14,4,1,1,0,0,0,0,3,8,80014,,,0,0,,0,9.0,0.0,1.0,1.0,45.0,7890.0,1.0,3.0,4.0,3.0,4.0,Date10-30-2021,,coryjamesatyahoodotcom,,CO
+id21040772,Reno,89433,4,2,10,0,1,0,0,0,0,1,4,80014,,,0,0,,1,0.0,0.0,,,,,,,,,,Date11-01-2021,,perryparisatyahoodotcom,,NV
+id21040710,Reno,89433,2,3,12,0,1,0,0,0,0,2,4,80014,,,0,0,,0,,0.0,,,,,,,,,,Date11-01-2021,,eringreenatyahoodotcom,,NV
+id21040711,Reno,89433,1,4,14,1,1,0,0,0,0,4,5,80014,,,0,0,,0,0.0,0.0,,,,,,,,,,Date11-02-2021,,erinbrooksatyahoodotcom,,NV
