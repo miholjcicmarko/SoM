@@ -513,6 +513,7 @@ class visuals {
             sliderText.attr('y', 25);
 
         sSlider.on('input', function () {
+            d3.select("#buttonID").classed("pressed", true);
             that.slider = true;
 
             sliderText
@@ -593,6 +594,7 @@ class visuals {
         let buttons = d3.select('#filterSButtons').selectAll("button");
 
         buttons.on("click", function (d) {
+            d3.select("#buttonID").classed("pressed", true);
             let elem_id = d.srcElement.innerText;
 
             let inequalityText = "";
@@ -901,6 +903,7 @@ class visuals {
         this.updateTextDescription();
 
         d3.select("#idWindow").classed("expandedWindow", false);
+        d3.select("#buttonID").classed("pressed", true);
     }
 
 }
