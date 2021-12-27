@@ -309,9 +309,10 @@ class visuals {
                 .attr('selected', true);
 
             dropdown_filter.on('change', function (d, i) {
+                d3.select('#submit').classed("pressed", false);
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
-                //that.globalFilter = indicator;
+                
                 if (that.multicompare === false) {
                     that.data = that.resetData;
                 }
@@ -514,7 +515,6 @@ class visuals {
             .append('div').classed('slider-label', true)
             .append('svg').attr("id", "slider-text");
 
-        //if (this.filterVal !== null || this.reset === true || this.activeYear === null) {
         let sliderText = sliderLabel.append('text')
             .text(this.filterVal);
 
@@ -523,6 +523,7 @@ class visuals {
 
         sSlider.on('input', function () {
             d3.select("#buttonID").classed("pressed", false);
+            d3.select('#submit').classed("pressed", false);
             that.slider = true;
 
             sliderText
@@ -641,6 +642,9 @@ class visuals {
                     d3.select('#'+ids[i]).classed("pressed", false);
                 }
             }
+            if (elem_id === "submit") {
+                d3.select('#'+elem_id).classed("pressed", true);
+            }
             that.filterData(that.filterBarVal);
         })
 
@@ -714,6 +718,7 @@ class visuals {
             let elem_id = d.srcElement.innerText;
 
             if (elem_id === "submit") {
+                d3.select('#submit').classed("pressed", true);
                 that.multicompare = true;
                 that.submitOn = true;
                 that.submitVar.push(that.chosenFilter);
@@ -721,9 +726,24 @@ class visuals {
                 if (that.catVariables.indexOf(that.chosenFilter) > -1) {
                     that.submitVarVal.push(that.catFilterVal)
                 }
+                for (let i = 0; i < that.uniqueCateg.length; i++) {
+                    d3.select("#"+that.uniqueCateg[i]).classed("pressed", false);
+                }
+
                 that.filterCatData(that.catFilterVal);
             }
             else {
+                d3.select('#submit').classed("pressed", false);
+
+                for (let i = 0; i < that.uniqueCateg.length; i++) {
+                    if (elem_id === that.uniqueCateg[i]) {
+                        d3.select("#"+that.uniqueCateg[i]).classed("pressed", true);
+                    }
+                    else {
+                        d3.select("#"+that.uniqueCateg[i]).classed("pressed", false);
+                    }
+                }
+
                 that.catFilterVal = elem_id;
                 that.filterCatData();
             }
@@ -985,6 +1005,14 @@ class visuals {
         this.inequality = "";
         this.filterBarVal = 0;
         this.catFilterVal = "";
+        this.initialTextDes = true;
+        this.multicompare = false;
+        this.submitVar = [];
+        this.submitVarVal = [];
+        this.submitInequalityList = [];
+        this.submitOn = false;
+        this.submittedData = [];
+        this.currentTextArr = "Filters Applied <br/>";
 
         this.drawChart();
         this.drawDropDown();
@@ -995,10 +1023,10 @@ class visuals {
             this.updateChart(0,1,i);
         }
 
-        this.initialTextDes = true;
         this.updateTextDescription();
 
         d3.select("#idWindow").classed("expandedWindow", false);
+        d3.select('#submit').classed("pressed", false);
     }
 
 }
