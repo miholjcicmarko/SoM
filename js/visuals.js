@@ -98,6 +98,9 @@ class visuals {
         this.submitVar = [];
         this.submitVarVal = [];
         this.submitInequalityList = [];
+        this.submitOn = false;
+        this.submittedData = [];
+        this.currentTextArr = "Filters Applied <br/>";
 
         this.drawChart();
         this.drawDropDown();
@@ -309,7 +312,7 @@ class visuals {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
                 //that.globalFilter = indicator;
-                if (that.multicompare === true) {
+                if (that.multicompare === false) {
                     that.data = that.resetData;
                 }
                 if (that.numVariables.indexOf(that.chosenFilter) > -1) {
@@ -619,14 +622,12 @@ class visuals {
             }
             else if (elem_id === "submit") {
                 that.multicompare = true;
+                that.submitOn = true;
                 that.submitVar.push(that.chosenFilter);
                 that.submitInequalityList.push(that.inequality);
 
                 if (that.numVariables.indexOf(that.chosenFilter) > -1) {
                     that.submitVarVal.push(that.filterBarVal);
-                }
-                else if (that.catVariables.indexOf(that.chosenFilter) > -1) {
-                    that.submitVarVal.push(that.catFilterVal)
                 }
             }
 
@@ -697,6 +698,14 @@ class visuals {
             document.getElementById("" + this.uniqueCateg[i]).innerHTML = this.uniqueCateg[i];
         }
 
+        let buttonSubmit = d3.select('#filterS')
+                        .append("button")
+                        .attr("class", "button")
+                        .attr("id", "submit")
+                        .style("margin", "5px");
+
+        document.getElementById("submit").innerHTML = "submit";
+
         let that = this;
 
         let buttons = d3.select('#filterS').selectAll("button");
@@ -704,15 +713,30 @@ class visuals {
         buttons.on("click", function (d) {
             let elem_id = d.srcElement.innerText;
 
-            that.catFilterVal = elem_id;
-            that.filterCatData();
+            if (elem_id === "submit") {
+                that.multicompare = true;
+                that.submitOn = true;
+                that.submitVar.push(that.chosenFilter);
+
+                if (that.catVariables.indexOf(that.chosenFilter) > -1) {
+                    that.submitVarVal.push(that.catFilterVal)
+                }
+                that.filterCatData(that.catFilterVal);
+            }
+            else {
+                that.catFilterVal = elem_id;
+                that.filterCatData();
+            }
         })
     }
 
     filterData (value) {
         let that = this;
-        if (this.multicompare === false) {
+        if (this.multicompare === false && this.submitOn === false) {
             this.data = this.resetData;
+        }
+        if (this.multicompare === true && this.submitOn === false) {
+            this.data = this.submittedData;
         }
         
         let newData = [];
@@ -741,6 +765,10 @@ class visuals {
     
         this.data = newData;
 
+        if (this.multicompare === true && this.submitOn === true) {
+            this.submittedData = this.data;
+        }
+
         for (let i = 1; i < 5; i++) {
             this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
         }
@@ -751,8 +779,11 @@ class visuals {
 
     filterCatData () {
         let that = this;
-        if (this.multicompare === false) {
+        if (this.multicompare === false && this.submitOn === false) {
             this.data = this.resetData;
+        }
+        if (this.multicompare === true && this.submitOn === false) {
+            this.data = this.submittedData;
         }
 
         let newData = [];
@@ -764,6 +795,10 @@ class visuals {
         }
 
         this.data = newData;
+
+        if (this.multicompare === true && this.submitOn === true) {
+            this.submittedData = this.data;
+        }
 
         for (let i = 1; i < 5; i++) {
             this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
@@ -783,36 +818,55 @@ class visuals {
         let text_box = d3.select("#filterWindow");
 
         if (this.catFilterVal === false && this.initialTextDes === false  &&
-            this.multicompare === false) {
+            this.multicompare === false && this.submitOn === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " " + this.inequality + infodata.value);
         }
         else if (this.catFilterVal !== false && this.initialTextDes === false
-            && this.multicompare === false) {
+            && this.multicompare === false && this.submitOn === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " = "+ infodata.value);
         }  
-        else if (this.initialTextDes === true && this.multicompare === false) {
+        else if (this.initialTextDes === true && this.multicompare === false
+            && this.submitOn === false) {
             text_box.html("Filters Applied");
             this.initialTextDes = false;
         } 
-        else if (this.multicompare === true) {
-            text_arr = "Filters Applied <br/>";
-            index_of_inequality = 0;
+        else if (this.multicompare === true && this.submitOn === false) {
+            let text_arr = "Filters Applied <br/>";
+            let index_of_inequality = 0;
 
             for (let i = 0; i < this.submitVar.length; i++) {
                 text_arr = text_arr + this.submitVar[i];
                 if (this.submitVar[i].indexOf("Categ") > -1) {
-                    text_arr = text_arr + " = " + that.submitVarVal[i];
+                    text_arr = text_arr + " = " + this.submitVarVal[i] + "<br/>";
                 }
                 else {
-                    text_arr = text_arr + that.submitVarVal[i] + " ";
+                    text_arr = text_arr + " ";
                     text_arr = text_arr + this.submitInequalityList[index_of_inequality] 
-                            + " " + this.submitVarVal[i] + "<br/>";
+                            + this.submitVarVal[i] + "<br/>";
                     index_of_inequality = index_of_inequality + 1;
                 }
             }
+            if (this.catFilterVal === false) {
+                text_arr = text_arr + infodata.chosenFilter + " " + this.inequality + infodata.value + "<br/>";
+            }
+            else if (this.catFilterVal !== false) {
+                text_arr = text_arr + infodata.chosenFilter + " = "+ infodata.value + "<br/>";
+            }
             text_box.html(text_arr);
+            this.currentTextArr = text_arr;
+        }
+        else if (this.multicompare === true && this.submitOn === true) {
+            let text_arr = this.currentTextArr;
+            if (this.catFilterVal === false) {
+                text_arr = text_arr + infodata.chosenFilter + " " + this.inequality + infodata.value + "<br/>";
+            }
+            else if (this.catFilterVal !== false) {
+                text_arr = text_arr + infodata.chosenFilter + " = "+ infodata.value + "<br/>";
+            }
+            text_box.html(text_arr);
+            this.submitOn = false;
         }
 
     }
