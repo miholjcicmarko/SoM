@@ -97,6 +97,7 @@ class visuals {
         this.multicompare = false;
         this.submitVar = [];
         this.submitVarVal = [];
+        this.submitInequalityList = [];
 
         this.drawChart();
         this.drawDropDown();
@@ -619,6 +620,8 @@ class visuals {
             else if (elem_id === "submit") {
                 that.multicompare = true;
                 that.submitVar.push(that.chosenFilter);
+                that.submitInequalityList.push(that.inequality);
+
                 if (that.numVariables.indexOf(that.chosenFilter) > -1) {
                     that.submitVarVal.push(that.filterBarVal);
                 }
@@ -748,7 +751,9 @@ class visuals {
 
     filterCatData () {
         let that = this;
-        this.data = this.resetData;
+        if (this.multicompare === false) {
+            this.data = this.resetData;
+        }
 
         let newData = [];
 
@@ -777,18 +782,38 @@ class visuals {
 
         let text_box = d3.select("#filterWindow");
 
-        if (this.catFilterVal === false && this.initialTextDes === false) {
+        if (this.catFilterVal === false && this.initialTextDes === false  &&
+            this.multicompare === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " " + this.inequality + infodata.value);
         }
-        else if (this.catFilterVal !== false && this.initialTextDes === false) {
+        else if (this.catFilterVal !== false && this.initialTextDes === false
+            && this.multicompare === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " = "+ infodata.value);
         }  
-        else if (this.initialTextDes === true) {
+        else if (this.initialTextDes === true && this.multicompare === false) {
             text_box.html("Filters Applied");
             this.initialTextDes = false;
-        }   
+        } 
+        else if (this.multicompare === true) {
+            text_arr = "Filters Applied <br/>";
+            index_of_inequality = 0;
+
+            for (let i = 0; i < this.submitVar.length; i++) {
+                text_arr = text_arr + this.submitVar[i];
+                if (this.submitVar[i].indexOf("Categ") > -1) {
+                    text_arr = text_arr + " = " + that.submitVarVal[i];
+                }
+                else {
+                    text_arr = text_arr + that.submitVarVal[i] + " ";
+                    text_arr = text_arr + this.submitInequalityList[index_of_inequality] 
+                            + " " + this.submitVarVal[i] + "<br/>";
+                    index_of_inequality = index_of_inequality + 1;
+                }
+            }
+            text_box.html(text_arr);
+        }
 
     }
 
