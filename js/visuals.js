@@ -92,8 +92,11 @@ class visuals {
         this.resetPresent = false;
         this.inequality = "";
         this.filterBarVal = 0;
-        this.catFilter = "";
+        this.catFilterVal = "";
         this.initialTextDes = true;
+        this.multicompare = false;
+        this.submitVar = [];
+        this.submitVarVal = [];
 
         this.drawChart();
         this.drawDropDown();
@@ -305,7 +308,9 @@ class visuals {
                 let indicator = this.options[this.selectedIndex].value;
                 that.chosenFilter = indicator;
                 //that.globalFilter = indicator;
-                that.data = that.resetData;
+                if (that.multicompare === true) {
+                    that.data = that.resetData;
+                }
                 if (that.numVariables.indexOf(that.chosenFilter) > -1) {
                     that.drawFilterBar(true);
                 }
@@ -464,7 +469,7 @@ class visuals {
         let that = this;
         that.slider = false;
         let sScale;
-        this.catFilter = false;
+        this.catFilterVal = false;
 
         let globalvariableVals = [];
 
@@ -611,6 +616,16 @@ class visuals {
                 inequalityText = "equal";
                 that.inequality = elem_id;
             }
+            else if (elem_id === "submit") {
+                that.multicompare = true;
+                that.submitVar.push(that.chosenFilter);
+                if (that.numVariables.indexOf(that.chosenFilter) > -1) {
+                    that.submitVarVal.push(that.filterBarVal);
+                }
+                else if (that.catVariables.indexOf(that.chosenFilter) > -1) {
+                    that.submitVarVal.push(that.catFilterVal)
+                }
+            }
 
             let ids = ["greaterthan", "lesserthan", "equal", "submit"];
 
@@ -686,14 +701,16 @@ class visuals {
         buttons.on("click", function (d) {
             let elem_id = d.srcElement.innerText;
 
-            that.catFilter = elem_id;
+            that.catFilterVal = elem_id;
             that.filterCatData();
         })
     }
 
     filterData (value) {
         let that = this;
-        this.data = this.resetData;
+        if (this.multicompare === false) {
+            this.data = this.resetData;
+        }
         
         let newData = [];
         
@@ -736,7 +753,7 @@ class visuals {
         let newData = [];
 
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i][that.chosenFilter] === this.catFilter) {
+            if (this.data[i][that.chosenFilter] === this.catFilterVal) {
                 newData.push(this.data[i]);
             }
         }
@@ -747,7 +764,7 @@ class visuals {
             this.updateChart(this.xIndicators[i], this.yIndicators[i], i);
         }
 
-        let value = this.catFilter;
+        let value = this.catFilterVal;
         this.updateTextDescription(value);
     }
 
@@ -760,11 +777,11 @@ class visuals {
 
         let text_box = d3.select("#filterWindow");
 
-        if (this.catFilter === false && this.initialTextDes === false) {
+        if (this.catFilterVal === false && this.initialTextDes === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " " + this.inequality + infodata.value);
         }
-        else if (this.catFilter !== false && this.initialTextDes === false) {
+        else if (this.catFilterVal !== false && this.initialTextDes === false) {
             text_box.html("Filters Applied <br/>" +
             infodata.chosenFilter + " = "+ infodata.value);
         }  
@@ -888,7 +905,7 @@ class visuals {
         this.resetPresent = false;
         this.inequality = "";
         this.filterBarVal = 0;
-        this.catFilter = "";
+        this.catFilterVal = "";
 
         this.drawChart();
         this.drawDropDown();
