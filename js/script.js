@@ -22,14 +22,12 @@ Promise.all([exampleData]).then(data => {
         if (id === "demo") {
             selectedData.newData(preData["demo"]);
             selectedData.preloaded = true;
-            document.getElementById('csv').value= null;
+            document.getElementById('csvUpload').value= null;
         }
         else if (id === "custom") {
             selectedData.newData(data);
-            // unselect the button here
-            //document.getElementById("covidButton").style.color = "white";
-            //document.getElementById("covidButton").style.backgroundColor = "rgb(134, 124, 189)";
             selectedData.preloaded = false;
+            d3.select("#demoButton").classed("button_select", false);
         }
     }
 

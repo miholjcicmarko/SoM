@@ -436,3 +436,8 @@ Stylings for the different sliders
     grid-column: 2;
     grid-row: 1;
 }
+
+.button_select {
+    background-color: silver;
+    color: black;
+}
