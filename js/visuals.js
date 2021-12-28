@@ -973,6 +973,21 @@ class visuals {
                 arr_of_ids.push(that.data[i]["ID"]);
             }
 
+            let max_length_ids = arr_of_ids[0].length;
+
+            for (let i = 0; i < arr_of_ids.length; i++) {
+                if (arr_of_ids[i].length > max_length_ids) {
+                    max_length_ids = arr_of_ids[i].length;
+                }
+            }
+
+            if (max_length_ids * arr_of_ids.length > 170) {
+                let index = Math.floor(170/max_length_ids);
+                for (let i = index; i < arr_of_ids.length; i+=index) {
+                    arr_of_ids[i] = arr_of_ids[i] + "<br/>";
+                }
+            }
+
             text_box.html("Current IDs <br/>" + arr_of_ids);
         })
 
