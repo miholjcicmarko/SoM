@@ -1,8 +1,18 @@
-class dataSelection {
+/** This class manages the user's demo data selection or csv file upload. */  
 
+class dataSelection {
+    /**
+     * @param data the data loaded in from the demo file
+     * @param updateData a callback function used to notify other parts of the 
+     * program when data has been selected (uploaded or clicked)
+     * @param performAnalysis a callback fuction used to used to notify other 
+     * parts of the program when the Perform Analysis button is clicked
+     */
     constructor (data, updateData, performAnalysis) {
         this.data = data;
+        // updateData is the callback function to updateData in script.js
         this.updateData = updateData;
+        // performAnalysis is the callback function to performAnalysis in script.js
         this.performAnalysis = performAnalysis;
         this.custom = false;
 
@@ -12,8 +22,6 @@ class dataSelection {
 
         demoData.on("click", function() {
             d3.select("#demoButton").classed("button_select", true);
-            //document.getElementById("demoButton").style.color = "black";
-            //document.getElementById("demoButton").style.backgroundColor = "silver";
             that.updateData("demo");
         });
 
@@ -41,8 +49,11 @@ class dataSelection {
 
     }
 
+    /**
+     * Assigns the newly selected data into a variable wihtin the program.
+     * @param data newly selected data
+     */
     newData (data) {
         this.data = data;
     }
-
 }

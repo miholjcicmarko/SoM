@@ -1,3 +1,4 @@
+/** Data structure for the data points plotted on the scatter plots. */
 class PlotData {
 
     constructor (id, xVal, yVal) {
@@ -8,6 +9,7 @@ class PlotData {
 
 }
 
+/** Class representing all the visual plots. */
 class visuals {
 
     constructor (data, custom) {
