@@ -214,8 +214,6 @@ div.dropdown-panel {
     float: right;
 }
 
-/*dropdown menu*/
-
 .select-selected {
     background-color: DodgerBlue;
 }
@@ -345,7 +343,7 @@ div.tooltipRect {
 }
 
 /* 
-Stylings for the different sliders
+Stylings for the slider
 */
 
 .slider {
