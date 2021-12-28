@@ -894,6 +894,7 @@ class visuals {
         let value = this.catFilterVal;
         this.updateTextDescription(value);
     }
+    
     /**
      * Displays the filters applied to the data set.
      * @param valueSlider the value inputted on the filter bar slider/the
@@ -963,7 +964,7 @@ class visuals {
     }
 
     /**
-     * 
+     * creates a listener for when a user hovers over a data point
      * @param onscreenData
      */
     tooltip (onscreenData) {
@@ -999,7 +1000,7 @@ class visuals {
 
     /**
      * Returns html that can be used to render the tooltip.
-     * @param data 
+     * @param data the data point that the user is hovering over
      * @returns {string}
      */
     tooltipDivRender (data){
@@ -1008,6 +1009,13 @@ class visuals {
         return "<h5>" + id + "<br/>";
     }    
 
+    /**
+     * displays a temporary circle over the data point that the user is 
+     * hovering over
+     * @param item the data point that the user is hovering over
+     * @param boolean flag that determines if the temporary circle 
+     * should be displayed
+     */
     createTempCircle (item, boolean) {
 
         let this_chart = parseInt(item.id.slice(-1),10);
@@ -1025,7 +1033,11 @@ class visuals {
         }
 
     }
-
+    
+    /**
+     * creates the button that will display all of the ids for the 
+     * displayed data points
+     */
     drawIdButton () {
 
         let button = d3.select('#idButtonDiv')
@@ -1072,6 +1084,11 @@ class visuals {
 
     }
 
+    /**
+     * Resets the entire visualization to the starting point
+     * (removes all filters and resets to the original dataset with
+     * the default dropdown settings)
+     */
     resetViz() {
         for (let i = 1; i < 5; i++) {
             let div = document.getElementById("chart" + i);
@@ -1122,5 +1139,4 @@ class visuals {
         d3.select("#idWindow").classed("expandedWindow", false);
         d3.select('#submit').classed("pressed", false);
     }
-
 }
