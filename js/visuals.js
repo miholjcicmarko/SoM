@@ -842,7 +842,9 @@ class visuals {
     
         this.data = newData;
 
-        // mutiple compare 
+        // multicompare notifies the program if there are multiple filters
+        // the submittedData will store the most recent data points that
+        // were kept following the filtering
         if (this.multicompare === true && this.submitOn === true) {
             this.submittedData = this.data;
         }
@@ -878,6 +880,9 @@ class visuals {
 
         this.data = newData;
 
+        // multicompare notifies the program if there are multiple filters
+        // the submittedData will store the most recent data points that
+        // were kept following the filtering
         if (this.multicompare === true && this.submitOn === true) {
             this.submittedData = this.data;
         }
@@ -889,7 +894,11 @@ class visuals {
         let value = this.catFilterVal;
         this.updateTextDescription(value);
     }
-
+    /**
+     * Displays the filters applied to the data set.
+     * @param valueSlider the value inputted on the filter bar slider/the
+     * category selected on the categorical filter
+     */
     updateTextDescription (valueSlider) {
 
         let infodata = {chosenFilter: this.chosenFilter,
@@ -953,6 +962,10 @@ class visuals {
 
     }
 
+    /**
+     * 
+     * @param onscreenData
+     */
     tooltip (onscreenData) {
         let that = this;
         let tooltip = d3.select('.tooltip');
@@ -984,11 +997,15 @@ class visuals {
         });
     }
 
+    /**
+     * Returns html that can be used to render the tooltip.
+     * @param data 
+     * @returns {string}
+     */
     tooltipDivRender (data){
         let id = data.currentTarget.id.slice(0,-1);
 
         return "<h5>" + id + "<br/>";
-
     }    
 
     createTempCircle (item, boolean) {
