@@ -1,6 +1,10 @@
 /** Data structure for the data points plotted on the scatter plots. */
 class PlotData {
-
+    /**
+     * @param id id for the data point
+     * @param xVal value for the x variable
+     * @param yVal value for the y variable
+     */
     constructor (id, xVal, yVal) {
         this.id = id;
         this.xVal = parseInt(xVal);
@@ -11,9 +15,14 @@ class PlotData {
 
 /** Class representing all the visual plots. */
 class visuals {
-
+    /**
+     * @param data the selected data
+     * @param custom flag for whether the data is uploaded
+     */
     constructor (data, custom) {
 
+        // removes elements in case the webpage is not refreshed 
+        // and the user selects a new dataset
         for (let i = 1; i < 5; i++) {
             let div = document.getElementById("chart" + i);
             while (div.firstChild) {
@@ -21,6 +30,8 @@ class visuals {
             }
         }
 
+        // removes elements in case the webpage is not refreshed 
+        // and the user selects a new dataset
         let divs = ["filter", "filterS", "filterWindow", "filterBlank", 
         "filterSButtons", "filterWindowReset", "idButtonDiv","idWindow"]
 
@@ -39,7 +50,9 @@ class visuals {
         this.data = data;
         this.resetData = data;
         this.variables = [];
+        // slider presence
         this.slider = true;
+        // value from slider
         this.filterVal = null;
 
         if (custom === false) {
@@ -52,6 +65,7 @@ class visuals {
             this.variables.shift();
         }
 
+        // an abscent value is replaced with -1
         for (let i = 0; i < this.data.length; i++) {
             for (let j = 0; j < this.variables.length; j++) {
                 if (this.data[i][this.variables[j]] === "") {
@@ -72,6 +86,7 @@ class visuals {
             }
         }
 
+        // absent categorical variables are replaced with NA
         for (let i = 0; i < this.data.length; i++) {
             for (let j = 0; j < this.catVariables.length; j++) {
                 if (this.data[i][this.catVariables[j]] === "-1") {
@@ -83,24 +98,32 @@ class visuals {
         this.color = d3.scaleOrdinal(d3.schemeAccent)
                 .domain([0,this.data.length]);
 
+        // initial indicators for both axis on all plots
         this.xIndicators = [this.numVariables[0], this.numVariables[0], 
                             this.numVariables[0], this.numVariables[0], 
                             this.numVariables[0]];
         this.yIndicators = [this.numVariables[0], this.numVariables[0],
                             this.numVariables[0], this.numVariables[0],
                             this.numVariables[0]];
+        // default filter is the first variable
         this.chosenFilter = this.variables[0];
-        //this.globalFilter = this.variables[0];
+        // variable indicating if the reset button is present
         this.resetPresent = false;
         this.inequality = "";
         this.filterBarVal = 0;
         this.catFilterVal = "";
+        // inital test description
         this.initialTextDes = true;
         this.multicompare = false;
+        // submitted list of variables
         this.submitVar = [];
+        // submitted list of values for each variable
         this.submitVarVal = [];
+        // submitted list of inequalities for each numeric variable
         this.submitInequalityList = [];
+        // variable indicating if the submit has been pressed
         this.submitOn = false;
+        // the leftover data from the previous filtering performed
         this.submittedData = [];
         this.currentTextArr = "Filters Applied <br/>";
 
@@ -113,6 +136,10 @@ class visuals {
 
     }
 
+    /**
+     * Sets up the plot, axes, and dropdown menus for each individual chart
+     * Sets up the dropdown menu for the filter 
+     */
     drawChart () {
 
         for (let i = 1; i < 5; i++) {
@@ -209,8 +236,8 @@ class visuals {
         
     }
 
-        /**
-     * Setting up the drop-downs
+    /**
+     * Setting up the drop-downs for the charts and the filter
      * @param xIndicator identifies the values to use for the x axis
      * @param yIndicator identifies the values to use for the y axis
      */
@@ -328,6 +355,12 @@ class visuals {
 
     }
 
+    /**
+     * Updates the data
+     * @param xIndicator identifies the values to use for the x axis
+     * @param yIndicator identifies the values to use for the y axis
+     * @param location identifies which scatter plot will be updated
+     */
     updateChart (xIndicator, yIndicator, location) {
 
         let x_VarIndx = 0;
@@ -356,6 +389,9 @@ class visuals {
             ydata.push(parseInt(this.data[i][y_var]));
         }
 
+        // gets the full dataset into two arrays for x and y
+        // this is necessary for situations where the data has been 
+        // filtered completely and does not have a min or max value
         let resetx = [];
         let resety = [];
 
@@ -457,11 +493,18 @@ class visuals {
 
         let data_circ = d3.selectAll("#chart"+location).selectAll("circle");
 
+        // places each circle into a tooltip
         that.tooltip(data_circ);
 
     }
 
+    /**
+     * Draws the filter Bar slider for numeric variables
+     * @param drawn a flag that notifies the program if the filterbar has
+     * already been drawn
+     */
     drawFilterBar (drawn) {
+
         if (drawn === true) {
             let div = document.getElementById("filterS")
             while (div.firstChild) {
@@ -475,11 +518,13 @@ class visuals {
 
         let that = this;
         that.slider = false;
+        // slider scale
         let sScale;
         this.catFilterVal = false;
 
         let globalvariableVals = [];
 
+        // the following code ensures there is a range for the filter bar slider
         for (let i = 0; i < this.data.length; i++) {
             globalvariableVals.push(parseInt(this.data[i][""+this.chosenFilter]));
         }
@@ -668,7 +713,12 @@ class visuals {
         })
 
     }
-
+    
+    /**
+     * Draws the category buttons for categorical variables
+     * @param drawn a flag that notifies the program if the categories have
+     * already been drawn
+     */
     drawCategoryFilter (drawn) {
         if (drawn === true) {
             let div = document.getElementById("filterS")
@@ -752,6 +802,11 @@ class visuals {
         })
     }
 
+    /**
+     * Filters the data displayed in all of the scatter plots
+     * @param value the numeric value that is associated with the inequality
+     * (used for providing a threshold for filtering the data)
+     */
     filterData (value) {
         let that = this;
         if (this.multicompare === false && this.submitOn === false) {
@@ -787,6 +842,7 @@ class visuals {
     
         this.data = newData;
 
+        // mutiple compare 
         if (this.multicompare === true && this.submitOn === true) {
             this.submittedData = this.data;
         }
@@ -799,6 +855,10 @@ class visuals {
 
     }
 
+    /**
+     * Filters the data displayed in all of the scatter plots based on
+     * the selected categorical variable
+     */
     filterCatData () {
         let that = this;
         if (this.multicompare === false && this.submitOn === false) {
