@@ -1,8 +1,8 @@
 /** The script to run the program on the webpage. */
 
-    /**
-     * Loads the demo data into an object.
-     */
+/**
+* Loads the demo data into an object.
+*/
 async function loadexampleData () {
     let data_demo = await d3.csv("./data/demo.csv");
 
