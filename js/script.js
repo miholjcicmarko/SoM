@@ -28,6 +28,7 @@ Promise.all([exampleData]).then(data => {
             selectedData.newData(preData["demo"]);
             selectedData.preloaded = true;
             document.getElementById('csvUpload').value= null;
+            d3.select("#demoButton").classed("button_select", true);
         }
         else if (id === "custom") {
             selectedData.newData(data);
